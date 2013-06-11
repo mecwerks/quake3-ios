@@ -160,7 +160,7 @@ typedef struct token_s
 	int type;						//last read token type
 	int subtype;					//last read token sub type
 #ifdef NUMBERVALUE
-	unsigned long int intvalue;	//integer value
+	unsigned long int intvalue;     //integer value
 	long double floatvalue;			//floating point value
 #endif //NUMBERVALUE
 	char *whitespace_p;				//start of white space before token

@@ -73,10 +73,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 //the actuall chat messages
 typedef struct bot_chatmessage_s
 {
-	char *chatmessage;					//chat message string
 	float time;							//last time used
 	struct bot_chatmessage_s *next;		//next chat message in a list
-} bot_chatmessage_t;
+    char *chatmessage;					//chat message string
+} __attribute__((packed)) bot_chatmessage_t;
 //bot chat type with chat lines
 typedef struct bot_chattype_s
 {
@@ -1171,7 +1171,7 @@ bot_matchpiece_t *BotLoadMatchPieces(source_t *source, char *endtoken)
 	{
 		if (token.type == TT_NUMBER && (token.subtype & TT_INTEGER))
 		{
-			if (token.intvalue < 0 || token.intvalue >= MAX_MATCHVARIABLES)
+			if (/*token.intvalue < 0 ||*/ token.intvalue >= MAX_MATCHVARIABLES)
 			{
 				SourceError(source, "can't have more than %d match variables\n", MAX_MATCHVARIABLES);
 				FreeSource(source);

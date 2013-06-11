@@ -1,0 +1,9 @@
+Compiling is only supported on iOS at the moment
+
+COMPILING for iOS
+=======================
+
+Xcode project for ios is located in code/ios/Quake3.xcodeproj
+In order to compile you need a jailbroken device and a modified version of Xcode.
+
+email me for any questions or concerns: mecwerks@gmail.com
