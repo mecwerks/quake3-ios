@@ -54,7 +54,7 @@
 								<string key="NSFrame">{{20, 317}, {728, 326}}</string>
 								<reference key="NSSuperview" ref="163664977"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="374082352"/>
+								<reference key="NSNextKeyView" ref="139957840"/>
 								<object class="NSColor" key="IBUIBackgroundColor" id="947439692">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MCAwAA</bytes>
@@ -187,26 +187,26 @@
 								<string key="NSFrame">{{0, 690}, {768, 264}}</string>
 								<reference key="NSSuperview" ref="163664977"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="139957840"/>
+								<reference key="NSNextKeyView" ref="460799428"/>
 								<reference key="IBUIBackgroundColor" ref="947439692"/>
 								<int key="IBUIContentMode">4</int>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>
 							<object class="IBUILabel" id="674248176">
 								<reference key="NSNextResponder" ref="163664977"/>
-								<int key="NSvFlags">1327</int>
-								<string key="NSFrame">{{20, 952}, {728, 59}}</string>
+								<int key="NSvFlags">1343</int>
+								<string key="NSFrame">{{-4, 873}, {772, 133}}</string>
 								<reference key="NSSuperview" ref="163664977"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView" ref="460799428"/>
+								<reference key="NSNextKeyView" ref="374082352"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<int key="IBUIContentMode">7</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 								<string type="base64-UTF8" key="IBUIText">UXVha2UgSUlJIEFyZW5hIMKpIDE5OTkgYnkgaWQgU29mdHdhcmUKaU9TIHBvcnQgYnkgU2V0aCBLaW5n
-c2xleSwgY29udHJvbCBzeXN0ZW0gZGVzaWduZWQgYnkgQWxleGFuZGVyIFBpY2suCkVuaGFuY2VtZW50
-cyBieSBNYXJjdXMgQ29sbGlucy4</string>
+c2xleQpDb250cm9sIHN5c3RlbSBkZXNpZ25lZCBieSBBbGV4YW5kZXIgUGljawpFbmhhbmNlbWVudHMg
+YnkgTWFyY3VzIENvbGxpbnM</string>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MSAxIDEgMC42AA</bytes>
@@ -218,8 +218,7 @@ cyBieSBNYXJjdXMgQ29sbGlucy4</string>
 								</object>
 								<string key="IBUIShadowOffset">{0, 0}</string>
 								<int key="IBUIBaselineAdjustment">1</int>
-								<float key="IBUIMinimumFontSize">7</float>
-								<int key="IBUINumberOfLines">3</int>
+								<int key="IBUINumberOfLines">4</int>
 								<int key="IBUITextAlignment">1</int>
 								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<string key="name">Helvetica</string>
@@ -232,7 +231,8 @@ cyBieSBNYXJjdXMgQ29sbGlucy4</string>
 									<double key="NSSize">14</double>
 									<int key="NSfFlags">16</int>
 								</object>
-								<double key="preferredMaxLayoutWidth">728</double>
+								<bool key="IBUIAdjustsFontSizeToFit">NO</bool>
+								<double key="preferredMaxLayoutWidth">772</double>
 							</object>
 						</array>
 						<string key="NSFrameSize">{768, 1024}</string>
