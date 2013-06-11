@@ -657,8 +657,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				2C7A7BAC1767E62E00BEA13E /* Default-568h@2x.png */,
-				2C7A7BA31767DA0000BEA13E /* Default@2x.png */,
 				080E96DDFE201D6D7F000001 /* Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -670,6 +668,8 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2C7A7BAC1767E62E00BEA13E /* Default-568h@2x.png */,
+				2C7A7BA31767DA0000BEA13E /* Default@2x.png */,
 				FDEC0B021568D0CC0063201B /* ball.png */,
 				FDEC0B031568D0CC0063201B /* Default.png */,
 				FDEC0B041568D0CC0063201B /* Default~ipad.png */,
@@ -1487,7 +1487,7 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				INFOPLIST_FILE = Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = Quake3;
 			};
 			name = Debug;
@@ -1498,6 +1498,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = Quake3;
 			};
 			name = Release;
@@ -1584,6 +1585,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				COPY_PHASE_STRIP = YES;
 				INFOPLIST_FILE = Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = Quake3;
 			};
 			name = Distribution;
