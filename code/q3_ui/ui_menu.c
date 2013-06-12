@@ -37,8 +37,8 @@ MAIN MENU
 #define ID_SETUP				12
 #define ID_DEMOS				13
 #define ID_CINEMATICS			14
-#define ID_TEAMARENA		15
-#define ID_MODS					16
+//#define ID_TEAMARENA		15
+//#define ID_MODS					16
 #define ID_EXIT					17
 
 #define MAIN_BANNER_MODEL				"models/mapobjects/banner/banner5.md3"
@@ -53,8 +53,8 @@ typedef struct {
 	menutext_s		setup;
 	menutext_s		demos;
 	menutext_s		cinematics;
-	menutext_s		teamArena;
-	menutext_s		mods;
+//	menutext_s		teamArena;
+//	menutext_s		mods;
 	menutext_s		exit;
 
 	qhandle_t		bannerModel;
@@ -115,7 +115,7 @@ void Main_MenuEvent (void* ptr, int event) {
 	case ID_CINEMATICS:
 		UI_CinematicsMenu();
 		break;
-
+/*
 	case ID_MODS:
 		UI_ModsMenu();
 		break;
@@ -124,7 +124,7 @@ void Main_MenuEvent (void* ptr, int event) {
 		trap_Cvar_Set( "fs_game", "missionpack");
 		trap_Cmd_ExecuteText( EXEC_APPEND, "vid_restart;" );
 		break;
-
+*/
 	case ID_EXIT:
 		UI_ConfirmMenu( "EXIT GAME?", NULL, MainMenu_ExitAction );
 		break;
@@ -268,11 +268,12 @@ and that local cinematics are killed
 */
 void UI_MainMenu( void ) {
 	int		y;
-	qboolean teamArena = qfalse;
+//	qboolean teamArena = qfalse;
 	int		style = UI_CENTER | UI_DROPSHADOW;
 
 	trap_Cvar_Set( "sv_killserver", "1" );
 
+/*
 	if( !uis.demoversion && !ui_cdkeychecked.integer ) {
 		char	key[17];
 
@@ -282,7 +283,7 @@ void UI_MainMenu( void ) {
 			return;
 		}
 	}
-	
+*/	
 	memset( &s_main, 0 ,sizeof(mainmenu_t) );
 	memset( &s_errorMessage, 0 ,sizeof(errorMessage_t) );
 
@@ -365,6 +366,7 @@ void UI_MainMenu( void ) {
 	s_main.cinematics.color					= color_red;
 	s_main.cinematics.style					= style;
 
+/*
 	if (UI_TeamArenaExists()) {
 		teamArena = qtrue;
 		y += MAIN_MENU_VERTICAL_SPACING;
@@ -389,7 +391,7 @@ void UI_MainMenu( void ) {
 	s_main.mods.string					= "MODS";
 	s_main.mods.color					= color_red;
 	s_main.mods.style					= style;
-
+*/
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.exit.generic.type				= MTYPE_PTEXT;
 	s_main.exit.generic.flags				= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
@@ -406,10 +408,10 @@ void UI_MainMenu( void ) {
 	Menu_AddItem( &s_main.menu,	&s_main.setup );
 	Menu_AddItem( &s_main.menu,	&s_main.demos );
 	Menu_AddItem( &s_main.menu,	&s_main.cinematics );
-	if (teamArena) {
-		Menu_AddItem( &s_main.menu,	&s_main.teamArena );
-	}
-	Menu_AddItem( &s_main.menu,	&s_main.mods );
+//	if (teamArena) {
+//		Menu_AddItem( &s_main.menu,	&s_main.teamArena );
+//	}
+//	Menu_AddItem( &s_main.menu,	&s_main.mods );
 	Menu_AddItem( &s_main.menu,	&s_main.exit );             
 
 	trap_Key_SetCatcher( KEYCATCH_UI );
