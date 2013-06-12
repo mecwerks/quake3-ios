@@ -430,7 +430,7 @@ typedef enum {
 
 #define PROP_GAP_WIDTH			3
 #define PROP_SPACE_WIDTH		8
-#define PROP_HEIGHT				27
+#define PROP_HEIGHT			27
 #define PROP_SMALL_SIZE_SCALE	0.75
 
 #define BLINK_DIVISOR			200
@@ -518,17 +518,20 @@ extern	vec3_t	bytedirs[NUMVERTEXNORMALS];
 #define	SCREEN_WIDTH		640
 #define	SCREEN_HEIGHT		480
 
+#define IOS_W_SCALE		2
+#define IOS_H_SCALE		2
+
 #define TINYCHAR_WIDTH		(SMALLCHAR_WIDTH)
 #define TINYCHAR_HEIGHT		(SMALLCHAR_HEIGHT/2)
 
-#define SMALLCHAR_WIDTH		8
-#define SMALLCHAR_HEIGHT	16
+#define SMALLCHAR_WIDTH		8 * IOS_W_SCALE
+#define SMALLCHAR_HEIGHT	16 * IOS_H_SCALE
 
-#define BIGCHAR_WIDTH		16
-#define BIGCHAR_HEIGHT		16
+#define BIGCHAR_WIDTH		16 * IOS_W_SCALE
+#define BIGCHAR_HEIGHT		16 * IOS_H_SCALE
 
-#define	GIANTCHAR_WIDTH		32
-#define	GIANTCHAR_HEIGHT	48
+#define	GIANTCHAR_WIDTH		32 * IOS_W_SCALE
+#define	GIANTCHAR_HEIGHT	48 * IOS_H_SCALE
 
 extern	vec4_t		colorBlack;
 extern	vec4_t		colorRed;

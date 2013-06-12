@@ -194,10 +194,10 @@ static void PText_Init( menutext_s *t )
 		x -= w / 2;
 	}
 
-	t->generic.left   = x - PROP_GAP_WIDTH * sizeScale;
-	t->generic.right  = x + w + PROP_GAP_WIDTH * sizeScale;
-	t->generic.top    = y;
-	t->generic.bottom = y + h;
+        t->generic.left   = x - PROP_GAP_WIDTH * sizeScale;
+        t->generic.right  = x + w + PROP_GAP_WIDTH * sizeScale;
+        t->generic.top    = y;
+        t->generic.bottom = y + h;
 }
 
 /*

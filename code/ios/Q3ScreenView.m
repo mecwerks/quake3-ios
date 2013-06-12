@@ -455,6 +455,16 @@
 	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, '/', 0, 0, NULL);
 }
 
+- (IBAction)startShooting:(id)sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 1, 0, NULL);
+}
+
+- (IBAction)stopShooting:(id)sender
+{
+	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 0, 0, NULL);
+}
+
 - (IBAction)escape:(id)sender
 {
 	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_ESCAPE, 1, 0, NULL);

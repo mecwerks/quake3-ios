@@ -44,9 +44,9 @@ SETUP MENU
 #define ID_SYSTEMCONFIG			12
 #define ID_GAME					13
 //#define ID_CDKEY				14
-#define ID_LOAD					15
-#define ID_SAVE					16
-#define ID_DEFAULTS				17
+//#define ID_LOAD					15
+//#define ID_SAVE					16
+//#define ID_DEFAULTS				17
 #define ID_BACK					18
 
 
@@ -63,7 +63,7 @@ typedef struct {
 //	menutext_s		cdkey;
 //	menutext_s		load;
 //	menutext_s		save;
-	menutext_s		defaults;
+//	menutext_s		defaults;
 	menubitmap_s	back;
 } setupMenuInfo_t;
 
@@ -74,7 +74,7 @@ static setupMenuInfo_t	setupMenuInfo;
 =================
 Setup_ResetDefaults_Action
 =================
-*/
+*//*
 static void Setup_ResetDefaults_Action( qboolean result ) {
 	if( !result ) {
 		return;
@@ -82,18 +82,18 @@ static void Setup_ResetDefaults_Action( qboolean result ) {
 	trap_Cmd_ExecuteText( EXEC_APPEND, "exec default.cfg\n");
 	trap_Cmd_ExecuteText( EXEC_APPEND, "cvar_restart\n");
 	trap_Cmd_ExecuteText( EXEC_APPEND, "vid_restart\n" );
-}
+}*/
 
 
 /*
 =================
 Setup_ResetDefaults_Draw
 =================
-*/
+*//*
 static void Setup_ResetDefaults_Draw( void ) {
 	UI_DrawProportionalString( SCREEN_WIDTH/2, 356 + PROP_HEIGHT * 0, "WARNING: This will reset *ALL*", UI_CENTER|UI_SMALLFONT, color_yellow );
 	UI_DrawProportionalString( SCREEN_WIDTH/2, 356 + PROP_HEIGHT * 1, "options to their default values.", UI_CENTER|UI_SMALLFONT, color_yellow );
-}
+}*/
 
 
 /*
@@ -135,9 +135,9 @@ static void UI_SetupMenu_Event( void *ptr, int event ) {
 //		UI_SaveConfigMenu();
 //		break;
 
-	case ID_DEFAULTS:
-		UI_ConfirmMenu( "SET TO DEFAULTS?", Setup_ResetDefaults_Draw, Setup_ResetDefaults_Action );
-		break;
+//	case ID_DEFAULTS:
+//		UI_ConfirmMenu( "SET TO DEFAULTS?", Setup_ResetDefaults_Draw, Setup_ResetDefaults_Action );
+//		break;
 
 	case ID_BACK:
 		UI_PopMenu();
@@ -238,10 +238,10 @@ static void UI_SetupMenu_Init( void ) {
 	setupMenuInfo.cdkey.string						= "CD Key";
 	setupMenuInfo.cdkey.color						= color_red;
 	setupMenuInfo.cdkey.style						= UI_CENTER;
-*/
-	if( !trap_Cvar_VariableValue( "cl_paused" ) ) {
-#if 0
-		y += SETUP_MENU_VERTICAL_SPACING;
+
+    if( !trap_Cvar_VariableValue( "cl_paused" ) ) {
+
+        y += SETUP_MENU_VERTICAL_SPACING;
 		setupMenuInfo.load.generic.type					= MTYPE_PTEXT;
 		setupMenuInfo.load.generic.flags				= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
 		setupMenuInfo.load.generic.x					= 320;
@@ -262,7 +262,7 @@ static void UI_SetupMenu_Init( void ) {
 		setupMenuInfo.save.string						= "SAVE";
 		setupMenuInfo.save.color						= color_red;
 		setupMenuInfo.save.style						= UI_CENTER;
-#endif
+
 
 		y += SETUP_MENU_VERTICAL_SPACING;
 		setupMenuInfo.defaults.generic.type				= MTYPE_PTEXT;
@@ -275,7 +275,7 @@ static void UI_SetupMenu_Init( void ) {
 		setupMenuInfo.defaults.color					= color_red;
 		setupMenuInfo.defaults.style					= UI_CENTER;
 	}
-
+*/
 	setupMenuInfo.back.generic.type					= MTYPE_BITMAP;
 	setupMenuInfo.back.generic.name					= ART_BACK0;
 	setupMenuInfo.back.generic.flags				= QMF_LEFT_JUSTIFY|QMF_PULSEIFFOCUS;
@@ -297,9 +297,8 @@ static void UI_SetupMenu_Init( void ) {
 //	Menu_AddItem( &setupMenuInfo.menu, &setupMenuInfo.cdkey );
 //	Menu_AddItem( &setupMenuInfo.menu, &setupMenuInfo.load );
 //	Menu_AddItem( &setupMenuInfo.menu, &setupMenuInfo.save );
-	if( !trap_Cvar_VariableValue( "cl_paused" ) ) {
-		Menu_AddItem( &setupMenuInfo.menu, &setupMenuInfo.defaults );
-	}
+//	if( !trap_Cvar_VariableValue( "cl_paused" ) )
+//		Menu_AddItem( &setupMenuInfo.menu, &setupMenuInfo.defaults );
 	Menu_AddItem( &setupMenuInfo.menu, &setupMenuInfo.back );
 }
 
