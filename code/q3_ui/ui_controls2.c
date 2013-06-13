@@ -101,23 +101,11 @@ typedef struct
 
 static controls_t s_controls;
 
-static vec4_t controls_binding_color  = {1.00f, 0.43f, 0.00f, 1.00f}; // bk: Win32 C4305
-
 static configcvar_t g_configcvars[] =
 {
 	{"m_pitch",			0,					0},
 	{"sensitivity",		0,					0},
 	{NULL,				0,					0}
-};
-
-static menucommon_s *g_looking_controls[] = {
-	(menucommon_s *)&s_controls.sensitivity,
-	(menucommon_s *)&s_controls.invertmouse,
- 	NULL,
-};
-
-static menucommon_s **g_controls[] = {
-	g_looking_controls,
 };
 
 /*
@@ -450,7 +438,7 @@ static void Controls_MenuInit( void )
 	s_controls.banner.generic.flags	= QMF_CENTER_JUSTIFY;
 	s_controls.banner.generic.x		= 320;
 	s_controls.banner.generic.y		= 16;
-	s_controls.banner.string		= "Settings";
+	s_controls.banner.string		= "SETTINGS";
 	s_controls.banner.color			= color_white;
 	s_controls.banner.style			= UI_CENTER;
 

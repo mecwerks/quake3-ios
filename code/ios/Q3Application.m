@@ -91,8 +91,8 @@ static const long long kDemoPakFileSize = 46853694;
 			if ([knownGame isEqualToString:@"demoq3"])
 			{
 				NSDictionary *attributes =
-				[fileManager fileAttributesAtPath:[gamePath stringByAppendingPathComponent:kPakFileName]
-									 traverseLink:NO];
+                    [fileManager attributesOfItemAtPath:[gamePath stringByAppendingPathComponent:kPakFileName]
+                                                  error:nil];
 
 				if (attributes.fileSize != kDemoPakFileSize)
 					continue;

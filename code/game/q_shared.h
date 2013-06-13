@@ -518,8 +518,8 @@ extern	vec3_t	bytedirs[NUMVERTEXNORMALS];
 #define	SCREEN_WIDTH		640
 #define	SCREEN_HEIGHT		480
 
-#define IOS_W_SCALE		2
-#define IOS_H_SCALE		2
+#define IOS_W_SCALE		1.5
+#define IOS_H_SCALE		1.5
 
 #define TINYCHAR_WIDTH		(SMALLCHAR_WIDTH)
 #define TINYCHAR_HEIGHT		(SMALLCHAR_HEIGHT/2)
