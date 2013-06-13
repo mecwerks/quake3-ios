@@ -41,47 +41,53 @@
 	//Com_Printf("%f\n", mouseDelta.width);
     
     //Com_Printf("lastKeyTime: %d\n", lastKeyTime);
-	if (_distance0FromCenter > 30 && (!lastKeyTime || (cls.keyCatchers && (Sys_Milliseconds() - lastKeyTime >= 200 ))))
+	if (_distance0FromCenter > 30)
 	{
-            if (mouseDelta0.height < -10)
-            {
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 1, 0, NULL);
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW, 0, 0, NULL);
-                //Com_Printf("%f\n", mouseDelta.height);
-            }
-            else if (mouseDelta0.height > 10)
-            {
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 0, 0, NULL);
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW, 1, 0, NULL);
-                //Com_Printf("Back: %f\n", mouseDelta.height);
-            }
-            else
-            {
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 0, 0, NULL);
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW, 0, 0, NULL);
-            }
-            
-            if (mouseDelta0.width < -25)
-            {
-                //Com_Printf("Left: %f\n", mouseDelta.width);
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 1, 0, NULL);
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'd', 0, 0, NULL);
-            }
-            else if (mouseDelta0.width > 25)
-            {
-                //Com_Printf("Right: %f\n", mouseDelta.width);
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 0, 0, NULL);
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'd', 1, 0, NULL);
-            }
-            else
-            {
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 0, 0, NULL);
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'd', 0, 0, NULL);
-            }
+        if ( cls.keyCatchers )
+            if ((lastKeyTime && (Sys_Milliseconds() - lastKeyTime < 200 )))
+                goto skipArrowKeys;
+        
+        if (mouseDelta0.height < -10)
+        {
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 1, 0, NULL);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW, 0, 0, NULL);
+            //Com_Printf("%f\n", mouseDelta.height);
+        }
+        else if (mouseDelta0.height > 10)
+        {
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 0, 0, NULL);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW, 1, 0, NULL);
+            //Com_Printf("Back: %f\n", mouseDelta.height);
+        }
+        else
+        {
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 0, 0, NULL);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW, 0, 0, NULL);
+        }
+        
+        if (mouseDelta0.width < -25)
+        {
+            //Com_Printf("Left: %f\n", mouseDelta.width);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 1, 0, NULL);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'd', 0, 0, NULL);
+        }
+        else if (mouseDelta0.width > 25)
+        {
+            //Com_Printf("Right: %f\n", mouseDelta.width);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 0, 0, NULL);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'd', 1, 0, NULL);
+        }
+        else
+        {
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 0, 0, NULL);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'd', 0, 0, NULL);
+        }
         lastKeyTime = Sys_Milliseconds();
+        
 	}
 	else
 	{
+        skipArrowKeys:
 		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 0, 0, NULL);
 		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW, 0, 0, NULL);
 		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 0, 0, NULL);
@@ -90,15 +96,60 @@
     
     CGPoint newLocation1 = CGPointMake(_oldLocation1.x - _distance1FromCenter/4 * cosf(_touch1Angle),
                                       _oldLocation1.y - _distance1FromCenter/4 * sinf(_touch1Angle));
-	//CGSize mouseDelta1;
-	//mouseDelta1.width = roundf((_oldLocation1.y - newLocation1.y) * _mouseScale.x);
-	//mouseDelta1.height = roundf((newLocation1.x - _oldLocation1.x) * _mouseScale.y);
+	CGSize mouseDelta1;
+	mouseDelta1.width = roundf((_oldLocation1.y - newLocation1.y) * _mouseScale.x);
+	mouseDelta1.height = roundf((newLocation1.x - _oldLocation1.x) * _mouseScale.y);
     
     //if (_distance1FromCenter > 60)
     //    Sys_QueEvent(Sys_Milliseconds(), SE_MOUSE, mouseDelta1.width, mouseDelta1.height, 0, NULL);
-    _oldLocation1 = newLocation1;
+    //_oldLocation1 = newLocation1;
 	//Com_Printf("%f\n", mouseDelta.width);
     
+    if (_distance1FromCenter > 10)
+	{
+        if (mouseDelta1.height < -10)
+        {
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_PGDN, 1, 0, NULL);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DEL, 0, 0, NULL);
+            //Com_Printf("%f\n", mouseDelta.height);
+        }
+        else if (mouseDelta1.height > 10)
+        {
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_PGDN, 0, 0, NULL);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DEL, 1, 0, NULL);
+            //Com_Printf("Back: %f\n", mouseDelta.height);
+        }
+        else
+        {
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_PGDN, 0, 0, NULL);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DEL, 0, 0, NULL);
+        }
+        
+        if (mouseDelta1.width < -25)
+        {
+            //Com_Printf("Left: %f\n", mouseDelta.width);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_LEFTARROW, 1, 0, NULL);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_RIGHTARROW, 0, 0, NULL);
+        }
+        else if (mouseDelta1.width > 25)
+        {
+            //Com_Printf("Right: %f\n", mouseDelta.width);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_LEFTARROW, 0, 0, NULL);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_RIGHTARROW, 1, 0, NULL);
+        }
+        else
+        {
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_LEFTARROW, 0, 0, NULL);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_RIGHTARROW, 0, 0, NULL);
+        }
+	}
+	else
+	{
+		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_PGDN, 0, 0, NULL);
+		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DEL, 0, 0, NULL);
+		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_LEFTARROW, 0, 0, NULL);
+		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_RIGHTARROW, 0, 0, NULL);
+	}
 }
 
 - (BOOL)_commonInit
@@ -338,9 +389,9 @@
             _isJoypad1Moving = YES;
             joypad1TouchHash = [touch hash];
             _isLooking = YES;
-            CGPoint mousePoint = CGPointMake((joypad1Centerx - cosf(_touch1Angle) * joypad1MaxRadius) * moveScale_x,
-                                           (joypad1Centery - sinf(_touch1Angle) * joypad1MaxRadius) * moveScale_y);
-            [self _handleMenuDragToPoint:mousePoint];//:[touch locationInView:self]];
+            //CGPoint mousePoint = CGPointMake((joypad1Centerx - cosf(_touch1Angle) * joypad1MaxRadius) * moveScale_x,
+            //                               (joypad1Centery - sinf(_touch1Angle) * joypad1MaxRadius) * moveScale_y);
+            //[self _handleMenuDragToPoint:mousePoint];//:[touch locationInView:self]];
             
             //if (_numTouches > 1)
             //    Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 1, 0, NULL);
@@ -406,9 +457,9 @@
             else
                 joypad1Cap.center = touchLocation;
             
-            CGPoint mousePoint = CGPointMake((joypad1Centerx - cosf(_touch1Angle) * joypad1MaxRadius) * moveScale_x,
-                                           (joypad1Centery - sinf(_touch1Angle) * joypad1MaxRadius)  * moveScale_y);
-            [self _handleMenuDragToPoint:mousePoint];
+            //CGPoint mousePoint = CGPointMake((joypad1Centerx - cosf(_touch1Angle) * joypad1MaxRadius) * moveScale_x,
+            //                               (joypad1Centery - sinf(_touch1Angle) * joypad1MaxRadius)  * moveScale_y);
+            //[self _handleMenuDragToPoint:mousePoint];
         }
     }
     
