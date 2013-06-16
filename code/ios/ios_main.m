@@ -8,15 +8,12 @@
 
 #import	"Q3Application.h"
 
-qboolean
-Sys_LowPhysicalMemory(void)
-{
+
+qboolean Sys_LowPhysicalMemory(void) {
 	return qtrue;
 }
 
-void
-Sys_Error(const char *error, ...)
-{
+void Sys_Error(const char *error, ...) {
 	NSString *errorString;
 	va_list ap;
 
@@ -33,9 +30,7 @@ Sys_Error(const char *error, ...)
 #endif // IOS_USE_THREADS
 }
 
-void
-Sys_Warn( const char *warning, ...)
-{
+void Sys_Warn( const char *warning, ...) {
 	NSString *warningString;
 	va_list ap;
 
@@ -45,16 +40,13 @@ Sys_Warn( const char *warning, ...)
 	va_end(ap);
 #ifdef IOS_USE_THREADS
 	[[Q3Application sharedApplication] performSelectorOnMainThread:@selector(presentWarningMessage:)
-																											withObject:warningString
-																									 waitUntilDone:YES];
+                                                        withObject:warningString waitUntilDone:YES];
 #else
 	[(Q3Application *)[Q3Application sharedApplication] presentWarningMessage:warningString];
 #endif // IOS_USE_THREADS
 }
 
-int
-main(int ac, char *av[])
-{
+int main(int ac, char *av[]) {
 	NSAutoreleasePool *pool = [NSAutoreleasePool new];
 	UIApplicationMain(ac, av, nil, nil);
 

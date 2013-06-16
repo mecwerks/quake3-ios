@@ -14,10 +14,29 @@
 
 @class UIImageView;
 
+enum {
+    UP_KEY,
+    DOWN_KEY,
+    LEFT_KEY,
+    RIGHT_KEY
+};
+
+typedef struct joyPad_s {
+    BOOL isJoypadMoving;
+	CGRect joypadArea;
+	uint joypadCenterx, joypadCentery, joypadMaxRadius, joypadWidth, joypadHeight;
+	int joypadTouchHash;
+	CGPoint joypadCapLocation;
+    CGPoint oldLocation;
+    float touchAngle;
+    float distanceFromCenter;
+    int keys[4];
+} joyPad_t;
+
 @interface Q3ScreenView : UIView
 {
-	IBOutlet UIImageView *joypad0Cap;
-	IBOutlet UIImageView *joypad1Cap;
+	IBOutlet UIImageView *joypadCap0;
+    IBOutlet UIImageView *joypadCap1;
 	IBOutlet UIView *_newControlView;
 
 @protected
@@ -34,25 +53,10 @@
 	unsigned int _bitMask;
 #endif // TODO
 	NSTimer *_gameTimer;
-	BOOL _isJoypad0Moving;
-	CGRect _joypad0Area;
-	uint joypad0Centerx, joypad0Centery, joypad0MaxRadius, joypad0Width, joypad0Height;
-	int joypad0TouchHash;
-	CGPoint _joypad0CapLocation;
-	BOOL _isJoypad1Moving;
-	CGRect _joypad1Area;
-	uint joypad1Centerx, joypad1Centery, joypad1MaxRadius, joypad1Width, joypad1Height;
-	int joypad1TouchHash;
-	CGPoint _joypad1CapLocation;
-    CGPoint _oldLocation0;
-    CGPoint _oldLocation1;
+    joyPad_t Joypad[2];
 	CGRect _shootButtonArea;
 	BOOL _isShooting;
 	BOOL _isLooking;
-	float _touch0Angle;
-	float _distance0FromCenter;
-	float _touch1Angle;
-	float _distance1FromCenter;
     int lastKeyTime;
 }
 
@@ -63,6 +67,8 @@
 - (void)swapBuffers;
 - (IBAction)startJumping:(id)sender;
 - (IBAction)stopJumping:(id)sender;
+- (IBAction)startShooting:(id)sender;
+- (IBAction)stopShooting:(id)sender;
 - (IBAction)changeWeapon:(id)sender;
 - (IBAction)escape:(id)sender;
 - (IBAction)enter:(id)sender;

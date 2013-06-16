@@ -28,128 +28,67 @@
 	return [CAEAGLLayer class];
 }
 
-- (void)_mainGameLoop
-{
-	CGPoint newLocation0 = CGPointMake(_oldLocation0.x - _distance0FromCenter/4 * cosf(_touch0Angle),
-                                      _oldLocation0.y - _distance0FromCenter/4 * sinf(_touch0Angle));
-	CGSize mouseDelta0;
-	mouseDelta0.width = roundf((_oldLocation0.y - newLocation0.y) * _mouseScale.x);
-	mouseDelta0.height = roundf((newLocation0.x - _oldLocation0.x) * _mouseScale.y);
+- (void)_mainGameLoop {
+    int i;
+    int width, height;
+    CGPoint newLocation;
     
-	//Sys_QueEvent(Sys_Milliseconds(), SE_MOUSE, mouseDelta.width, mouseDelta.height, 0, NULL);
-	//_oldLocation = newLocation;
-	//Com_Printf("%f\n", mouseDelta.width);
-    
-    //Com_Printf("lastKeyTime: %d\n", lastKeyTime);
-	if (_distance0FromCenter > 30)
-	{
-        if ( cls.keyCatchers )
-            if ((lastKeyTime && (Sys_Milliseconds() - lastKeyTime < 200 )))
-                goto skipArrowKeys;
+    for (i = 0; i < 2; i++) {
+        newLocation = CGPointMake(
+                                  Joypad[i].oldLocation.x - Joypad[i].distanceFromCenter/4 * cosf(Joypad[i].touchAngle),
+                                  Joypad[i].oldLocation.y - Joypad[i].distanceFromCenter/4 * sinf(Joypad[i].touchAngle));
+        width = roundf((Joypad[i].oldLocation.y - newLocation.y) * _mouseScale.x);
+        height = roundf((newLocation.x - Joypad[i].oldLocation.x) * _mouseScale.y);
         
-        if (mouseDelta0.height < -10)
+        if (Joypad[i].distanceFromCenter > 30)
         {
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 1, 0, NULL);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW, 0, 0, NULL);
-            //Com_Printf("%f\n", mouseDelta.height);
-        }
-        else if (mouseDelta0.height > 10)
-        {
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 0, 0, NULL);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW, 1, 0, NULL);
-            //Com_Printf("Back: %f\n", mouseDelta.height);
+            if ( i == 0 && cls.keyCatchers )
+                if ((lastKeyTime && (Sys_Milliseconds() - lastKeyTime < 200 )))
+                    goto skipArrowKeys;
+            
+            if (height < -10)
+            {
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 1, 0, NULL);
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 0, 0, NULL);
+            }
+            else if (height > 10)
+            {
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 0, 0, NULL);
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 1, 0, NULL);
+            }
+            else
+            {
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 0, 0, NULL);
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 0, 0, NULL);
+            }
+            
+            if (width < -10)
+            {
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 1, 0, NULL);
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 0, 0, NULL);
+            }
+            else if (width > 10)
+            {
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 0, 0, NULL);
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 1, 0, NULL);
+            }
+            else
+            {
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 0, 0, NULL);
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 0, 0, NULL);
+            }
+            lastKeyTime = Sys_Milliseconds();
+            
         }
         else
         {
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 0, 0, NULL);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW, 0, 0, NULL);
-        }
-        
-        if (mouseDelta0.width < -25)
-        {
-            //Com_Printf("Left: %f\n", mouseDelta.width);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 1, 0, NULL);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'd', 0, 0, NULL);
-        }
-        else if (mouseDelta0.width > 25)
-        {
-            //Com_Printf("Right: %f\n", mouseDelta.width);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 0, 0, NULL);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'd', 1, 0, NULL);
-        }
-        else
-        {
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 0, 0, NULL);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'd', 0, 0, NULL);
-        }
-        lastKeyTime = Sys_Milliseconds();
-        
-	}
-	else
-	{
         skipArrowKeys:
-		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_UPARROW, 0, 0, NULL);
-		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DOWNARROW, 0, 0, NULL);
-		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'a', 0, 0, NULL);
-		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, 'd', 0, 0, NULL);
-	}
-    
-    CGPoint newLocation1 = CGPointMake(_oldLocation1.x - _distance1FromCenter/4 * cosf(_touch1Angle),
-                                      _oldLocation1.y - _distance1FromCenter/4 * sinf(_touch1Angle));
-	CGSize mouseDelta1;
-	mouseDelta1.width = roundf((_oldLocation1.y - newLocation1.y) * _mouseScale.x);
-	mouseDelta1.height = roundf((newLocation1.x - _oldLocation1.x) * _mouseScale.y);
-    
-    //if (_distance1FromCenter > 60)
-    //    Sys_QueEvent(Sys_Milliseconds(), SE_MOUSE, mouseDelta1.width, mouseDelta1.height, 0, NULL);
-    //_oldLocation1 = newLocation1;
-	//Com_Printf("%f\n", mouseDelta.width);
-    
-    if (_distance1FromCenter > 10)
-	{
-        if (mouseDelta1.height < -10)
-        {
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_PGDN, 1, 0, NULL);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DEL, 0, 0, NULL);
-            //Com_Printf("%f\n", mouseDelta.height);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 0, 0, NULL);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 0, 0, NULL);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 0, 0, NULL);
+            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 0, 0, NULL);
         }
-        else if (mouseDelta1.height > 10)
-        {
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_PGDN, 0, 0, NULL);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DEL, 1, 0, NULL);
-            //Com_Printf("Back: %f\n", mouseDelta.height);
-        }
-        else
-        {
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_PGDN, 0, 0, NULL);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DEL, 0, 0, NULL);
-        }
-        
-        if (mouseDelta1.width < -25)
-        {
-            //Com_Printf("Left: %f\n", mouseDelta.width);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_LEFTARROW, 1, 0, NULL);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_RIGHTARROW, 0, 0, NULL);
-        }
-        else if (mouseDelta1.width > 25)
-        {
-            //Com_Printf("Right: %f\n", mouseDelta.width);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_LEFTARROW, 0, 0, NULL);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_RIGHTARROW, 1, 0, NULL);
-        }
-        else
-        {
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_LEFTARROW, 0, 0, NULL);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_RIGHTARROW, 0, 0, NULL);
-        }
-	}
-	else
-	{
-		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_PGDN, 0, 0, NULL);
-		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_DEL, 0, 0, NULL);
-		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_LEFTARROW, 0, 0, NULL);
-		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_RIGHTARROW, 0, 0, NULL);
-	}
+    }
 }
 
 - (BOOL)_commonInit
@@ -177,6 +116,15 @@
 												userInfo:nil
 												 repeats:YES];
 
+    Joypad[0].keys[0] = K_UPARROW;
+    Joypad[0].keys[1] = K_DOWNARROW;
+    Joypad[0].keys[2] = K_LEFTARROW;
+    Joypad[0].keys[3] = K_RIGHTARROW;
+    Joypad[1].keys[0] = K_PGDN;
+    Joypad[1].keys[1] = K_DEL;
+    Joypad[1].keys[2] = K_SHIFT;
+    Joypad[1].keys[3] = K_CTRL;
+    
 	return YES;
 }
 
@@ -217,22 +165,20 @@
 	[super dealloc];
 }
 
-- (void)awakeFromNib
-{
+- (void)awakeFromNib {
+    int i;
+    CGRect joypadCapFrame;
 	CGRect newControlFrame = [_newControlView frame];
 	_shootButtonArea = CGRectMake(CGRectGetMinX(newControlFrame) + 4, CGRectGetMinY(newControlFrame) + 40, 68, 68);
 
-	CGRect joypad0CapFrame = [joypad0Cap frame];
-	_joypad0Area = CGRectMake(CGRectGetMinX(joypad0CapFrame), CGRectGetMinY(joypad0CapFrame), 250, 250);
-	joypad0Centerx = CGRectGetMidX(joypad0CapFrame);
-	joypad0Centery = CGRectGetMidY(joypad0CapFrame);
-	joypad0MaxRadius = 60;
-
-    CGRect joypad1CapFrame = [joypad1Cap frame];
-	_joypad1Area = CGRectMake(CGRectGetMinX(joypad1CapFrame), CGRectGetMinY(joypad1CapFrame), 250, 250);
-	joypad1Centerx = CGRectGetMidX(joypad1CapFrame);
-	joypad1Centery = CGRectGetMidY(joypad1CapFrame);
-	joypad1MaxRadius = 60;
+    for (i = 0; i < 2; i++) {
+        if (i == 0) joypadCapFrame = [joypadCap0 frame];
+        else joypadCapFrame = [joypadCap1 frame];
+        Joypad[i].joypadArea = CGRectMake(CGRectGetMinX(joypadCapFrame), CGRectGetMinY(joypadCapFrame), 250, 250);
+        Joypad[i].joypadCenterx = CGRectGetMidX(joypadCapFrame);
+        Joypad[i].joypadCentery = CGRectGetMidY(joypadCapFrame);
+        Joypad[i].joypadMaxRadius = 60;
+    }
 }
 
 - (BOOL)_createSurface
@@ -316,7 +262,6 @@
 }
 
 - (void)_reCenter {
-	
 	if(!_isLooking) {
 		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_END, 1, 0, NULL);
 		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_END, 0, 0, NULL);
@@ -378,157 +323,77 @@
 	}
 }
 
-- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    // always let mouse move
-    for (UITouch *touch in touches)
-    {
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    int i;
+
+    for (UITouch *touch in touches) {
         CGPoint touchLocation = [touch locationInView:self];
-        if (CGRectContainsPoint(_joypad1Area, touchLocation) && !_isJoypad1Moving)
-        {
-            _isJoypad1Moving = YES;
-            joypad1TouchHash = [touch hash];
-            _isLooking = YES;
-            //CGPoint mousePoint = CGPointMake((joypad1Centerx - cosf(_touch1Angle) * joypad1MaxRadius) * moveScale_x,
-            //                               (joypad1Centery - sinf(_touch1Angle) * joypad1MaxRadius) * moveScale_y);
-            //[self _handleMenuDragToPoint:mousePoint];//:[touch locationInView:self]];
-            
-            //if (_numTouches > 1)
-            //    Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 1, 0, NULL);
+        for (i = 0; i <= 2; i++) {
+            if (CGRectContainsPoint(Joypad[i].joypadArea, touchLocation) && !Joypad[i].isJoypadMoving) {
+                Joypad[i].isJoypadMoving = YES;
+                Joypad[i].joypadTouchHash = [touch hash];
+                if (i == 0) lastKeyTime = Sys_Milliseconds();
+                else _isLooking = YES;
+            }
         }
     }
-    
-//	if (cls.keyCatchers == 0)
-//	{
-		for (UITouch *touch in touches)
-		{
-			CGPoint touchLocation = [touch locationInView:self];
-
-			if (CGRectContainsPoint(_joypad0Area, touchLocation) && !_isJoypad0Moving)
-			{
-                        _isJoypad0Moving = YES;
-                        joypad0TouchHash = [touch hash];
-                        lastKeyTime = Sys_Milliseconds();
-			}
-			//else if (CGRectContainsPoint(_shootButtonArea, touchLocation) && !_isShooting)
-			//{
-			//	_isShooting = YES;
-			//	_isLooking = YES;
-			//	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 1, 0, NULL);
-			//	[self _handleMenuDragToPoint:[touch locationInView:self]];
-			//}
-			//else
-			//{
-			//	_isLooking = YES;
-			//	[self _handleMenuDragToPoint:[touch locationInView:self]];
-			//}
-		}
-//	}
-	//else
-	//{
-	//	for (UITouch *touch in touches)
-	//	{
-	//		if (_numTouches == 0)
-	//			[self _handleMenuDragToPoint:[touch locationInView:self]];
-    //
-	//		Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1 + _numTouches++, 1, 0, NULL);
-	//	}
-	//}
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
-{
-    // always move mouse
+- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+    int i;
+
     for (UITouch *touch in touches)
     {
-        if ([touch hash] == joypad1TouchHash && _isJoypad1Moving)
-        {
-            CGPoint touchLocation = [touch locationInView:self];
-            float dx = (float)joypad1Centerx - (float)touchLocation.x;
-            float dy = (float)joypad1Centery - (float)touchLocation.y;
-            
-            _distance1FromCenter = sqrtf((joypad1Centerx - touchLocation.x) * (joypad1Centerx - touchLocation.x) +
-                                         (joypad1Centery - touchLocation.y) * (joypad1Centery - touchLocation.y));
-            _touch1Angle = atan2(dy, dx);
-            
-            if (_distance1FromCenter > joypad1MaxRadius)
-                joypad1Cap.center = CGPointMake(joypad1Centerx - cosf(_touch1Angle) * joypad1MaxRadius,
-                                                joypad1Centery - sinf(_touch1Angle) * joypad1MaxRadius);
-            else
-                joypad1Cap.center = touchLocation;
-            
-            //CGPoint mousePoint = CGPointMake((joypad1Centerx - cosf(_touch1Angle) * joypad1MaxRadius) * moveScale_x,
-            //                               (joypad1Centery - sinf(_touch1Angle) * joypad1MaxRadius)  * moveScale_y);
-            //[self _handleMenuDragToPoint:mousePoint];
+        for (i = 0; i <= 2; i++) {
+            if ([touch hash] == Joypad[i].joypadTouchHash && Joypad[i].isJoypadMoving)
+            {
+                CGPoint touchLocation = [touch locationInView:self];
+                float dx = (float)Joypad[i].joypadCenterx - (float)touchLocation.x;
+                float dy = (float)Joypad[i].joypadCentery - (float)touchLocation.y;
+                
+                Joypad[i].distanceFromCenter = sqrtf(
+                                (Joypad[i].joypadCenterx - touchLocation.x) * (Joypad[i].joypadCenterx - touchLocation.x) +
+                                (Joypad[i].joypadCentery - touchLocation.y) * (Joypad[i].joypadCentery - touchLocation.y));
+                
+                Joypad[i].touchAngle = atan2(dy, dx);
+                
+                if (i == 0) {
+                    if (Joypad[i].distanceFromCenter > Joypad[i].joypadMaxRadius)
+                        joypadCap0.center = CGPointMake(
+                                        Joypad[i].joypadCenterx - cosf(Joypad[i].touchAngle) * Joypad[i].joypadMaxRadius,
+                                        Joypad[i].joypadCentery - sinf(Joypad[i].touchAngle) * Joypad[i].joypadMaxRadius);
+                    else
+                        joypadCap0.center = touchLocation;
+                } else {
+                    if (Joypad[i].distanceFromCenter > Joypad[i].joypadMaxRadius)
+                        joypadCap1.center = CGPointMake(
+                                        Joypad[i].joypadCenterx - cosf(Joypad[i].touchAngle) * Joypad[i].joypadMaxRadius,
+                                        Joypad[i].joypadCentery - sinf(Joypad[i].touchAngle) * Joypad[i].joypadMaxRadius);
+                    else
+                        joypadCap1.center = touchLocation;
+                }
+            }
         }
     }
-    
-//	if (cls.keyCatchers == 0)
-//	{
-		for (UITouch *touch in touches)
-		{
-			if ([touch hash] == joypad0TouchHash && _isJoypad0Moving)
-			{
-				CGPoint touchLocation = [touch locationInView:self];
-				float dx = (float)joypad0Centerx - (float)touchLocation.x;
-				float dy = (float)joypad0Centery - (float)touchLocation.y;
-
-				_distance0FromCenter = sqrtf((joypad0Centerx - touchLocation.x) * (joypad0Centerx - touchLocation.x) +
-						(joypad0Centery - touchLocation.y) * (joypad0Centery - touchLocation.y));
-				_touch0Angle = atan2(dy, dx);
-
-				if (_distance0FromCenter > joypad0MaxRadius)
-					joypad0Cap.center = CGPointMake(joypad0Centerx - cosf(_touch0Angle) * joypad0MaxRadius,
-												   joypad0Centery - sinf(_touch0Angle) * joypad0MaxRadius);
-				else
-					joypad0Cap.center = touchLocation;
-			}
- //       }
-	}
-//	else
-		// TODO: Find the touch that started first.
-//		[self _handleMenuDragToPoint:[[touches anyObject] locationInView:self]];
 }
 
-- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
-{
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
+    int i;
+    
     for (UITouch *touch in touches)
     {
-        if ([touch hash] == joypad1TouchHash)
-        {
-            _isJoypad1Moving = NO;
-            joypad1TouchHash = 0;
-            _distance1FromCenter = 0;
-            _touch1Angle = 0;
-            joypad1Cap.center = CGPointMake(joypad1Centerx, joypad1Centery);
+        for (i = 0; i <= 2; i++) {
+            if ([touch hash] == Joypad[i].joypadTouchHash)
+            {
+                Joypad[i].isJoypadMoving = NO;
+                Joypad[i].joypadTouchHash = 0;
+                Joypad[i].distanceFromCenter = 0;
+                Joypad[i].touchAngle = 0;
+                if (i == 0) joypadCap0.center = CGPointMake(Joypad[i].joypadCenterx, Joypad[i].joypadCentery);
+                else joypadCap1.center = CGPointMake(Joypad[i].joypadCenterx, Joypad[i].joypadCentery);
+            }
         }
     }
-    
-//	if (cls.keyCatchers == 0)
-//	{
-		for (UITouch *touch in touches)
-		{
-			if ([touch hash] == joypad0TouchHash)
-			{
-				_isJoypad0Moving = NO;
-				joypad0TouchHash = 0;
-				_distance0FromCenter = 0;
-				_touch0Angle = 0;
-				joypad0Cap.center = CGPointMake(joypad0Centerx, joypad0Centery);
-			}
-			//else
-			//{
-			//	_isShooting = NO;
-			//	Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 0, 0, NULL);
-			//	_isLooking = NO;
-			//	[NSTimer scheduledTimerWithTimeInterval:4.0 target:self selector:@selector(_reCenter) userInfo:nil repeats:NO];
-			//}
-		}
-//	}
-//	else
-    for (UITouch *touch in touches)
-        if (_numTouches >= 2)
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, K_MOUSE1, 0, 0, NULL);
 }
 
 @dynamic numColorBits;
