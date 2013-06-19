@@ -33,18 +33,18 @@
     int width, height;
     CGPoint newLocation;
     
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < NUM_JOYPADS; i++) {
         newLocation = CGPointMake(
-                                  Joypad[i].oldLocation.x - Joypad[i].distanceFromCenter/4 * cosf(Joypad[i].touchAngle),
-                                  Joypad[i].oldLocation.y - Joypad[i].distanceFromCenter/4 * sinf(Joypad[i].touchAngle));
+            Joypad[i].oldLocation.x - Joypad[i].distanceFromCenter/4 * cosf(Joypad[i].touchAngle),
+            Joypad[i].oldLocation.y - Joypad[i].distanceFromCenter/4 * sinf(Joypad[i].touchAngle));
         width = roundf((Joypad[i].oldLocation.y - newLocation.y) * _mouseScale.x);
         height = roundf((newLocation.x - Joypad[i].oldLocation.x) * _mouseScale.y);
         
         if (Joypad[i].distanceFromCenter > 30)
         {
-            if ( i == 0 && cls.keyCatchers )
+            if ( cls.keyCatchers )
                 if ((lastKeyTime && (Sys_Milliseconds() - lastKeyTime < 200 )))
-                    goto skipArrowKeys;
+                    goto skipArrowKeys; // delay keypresses at menus
             
             if (height < -10)
             {
@@ -111,11 +111,9 @@
     _GUIMouseLocation = CGPointMake(0, 0);
 
 	_gameTimer = [NSTimer scheduledTimerWithTimeInterval:1.0 / 60
-												  target:self
-												selector:@selector(_mainGameLoop)
-												userInfo:nil
-												 repeats:YES];
+                target:self selector:@selector(_mainGameLoop) userInfo:nil repeats:YES];
 
+    // Joypad UP, DOWN, LEFT, and RIGHT keys
     Joypad[0].keys[0] = K_UPARROW;
     Joypad[0].keys[1] = K_DOWNARROW;
     Joypad[0].keys[2] = K_LEFTARROW;
@@ -171,10 +169,14 @@
 	CGRect newControlFrame = [_newControlView frame];
 	_shootButtonArea = CGRectMake(CGRectGetMinX(newControlFrame) + 4, CGRectGetMinY(newControlFrame) + 40, 68, 68);
 
-    for (i = 0; i < 2; i++) {
+    for (i = 0; i < NUM_JOYPADS; i++)
+    {
+        // Joypad caps
         if (i == 0) joypadCapFrame = [joypadCap0 frame];
         else joypadCapFrame = [joypadCap1 frame];
-        Joypad[i].joypadArea = CGRectMake(CGRectGetMinX(joypadCapFrame), CGRectGetMinY(joypadCapFrame), 250, 250);
+
+        Joypad[i].joypadArea = CGRectMake(CGRectGetMinX(joypadCapFrame),
+                                          CGRectGetMinY(joypadCapFrame), 250, 250);
         Joypad[i].joypadCenterx = CGRectGetMidX(joypadCapFrame);
         Joypad[i].joypadCentery = CGRectGetMidY(joypadCapFrame);
         Joypad[i].joypadMaxRadius = 60;
@@ -328,8 +330,10 @@
 
     for (UITouch *touch in touches) {
         CGPoint touchLocation = [touch locationInView:self];
-        for (i = 0; i <= 2; i++) {
-            if (CGRectContainsPoint(Joypad[i].joypadArea, touchLocation) && !Joypad[i].isJoypadMoving) {
+        for (i = 0; i < NUM_JOYPADS; i++) {
+            if (CGRectContainsPoint(Joypad[i].joypadArea, touchLocation) &&
+                !Joypad[i].isJoypadMoving)
+            {
                 Joypad[i].isJoypadMoving = YES;
                 Joypad[i].joypadTouchHash = [touch hash];
                 if (i == 0) lastKeyTime = Sys_Milliseconds();
@@ -344,7 +348,7 @@
 
     for (UITouch *touch in touches)
     {
-        for (i = 0; i <= 2; i++) {
+        for (i = 0; i < NUM_JOYPADS; i++) {
             if ([touch hash] == Joypad[i].joypadTouchHash && Joypad[i].isJoypadMoving)
             {
                 CGPoint touchLocation = [touch locationInView:self];
@@ -382,13 +386,14 @@
     
     for (UITouch *touch in touches)
     {
-        for (i = 0; i <= 2; i++) {
+        for (i = 0; i < NUM_JOYPADS; i++) {
             if ([touch hash] == Joypad[i].joypadTouchHash)
             {
                 Joypad[i].isJoypadMoving = NO;
                 Joypad[i].joypadTouchHash = 0;
                 Joypad[i].distanceFromCenter = 0;
                 Joypad[i].touchAngle = 0;
+                // Joypad caps
                 if (i == 0) joypadCap0.center = CGPointMake(Joypad[i].joypadCenterx, Joypad[i].joypadCentery);
                 else joypadCap1.center = CGPointMake(Joypad[i].joypadCenterx, Joypad[i].joypadCentery);
             }

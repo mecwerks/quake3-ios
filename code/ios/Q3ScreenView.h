@@ -11,6 +11,7 @@
 
 #define moveScale_x 0.69818182
 #define moveScale_y 3.24050633
+#define NUM_JOYPADS 2
 
 @class UIImageView;
 
@@ -35,6 +36,7 @@ typedef struct joyPad_s {
 
 @interface Q3ScreenView : UIView
 {
+    // Joypad caps
 	IBOutlet UIImageView *joypadCap0;
     IBOutlet UIImageView *joypadCap1;
 	IBOutlet UIView *_newControlView;
@@ -53,7 +55,7 @@ typedef struct joyPad_s {
 	unsigned int _bitMask;
 #endif // TODO
 	NSTimer *_gameTimer;
-    joyPad_t Joypad[2];
+    joyPad_t Joypad[NUM_JOYPADS];
 	CGRect _shootButtonArea;
 	BOOL _isShooting;
 	BOOL _isLooking;
