@@ -40,42 +40,42 @@
         width = roundf((Joypad[i].oldLocation.y - newLocation.y) * _mouseScale.x);
         height = roundf((newLocation.x - Joypad[i].oldLocation.x) * _mouseScale.y);
         
-        if (Joypad[i].distanceFromCenter > 30)
+        if (Joypad[i].distanceFromCenter > 5)
         {
             if ( cls.keyCatchers )
                 if ((lastKeyTime && (Sys_Milliseconds() - lastKeyTime < 200 )))
                     goto skipArrowKeys; // delay keypresses at menus
             
-            if (height < -10)
+            if (height < -5)
             {
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 1, 0, NULL);
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 0, 0, NULL);
+                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 1, abs(height), 0, NULL);
+                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 0, abs(height), 0, NULL);
             }
-            else if (height > 10)
+            else if (height > 5)
             {
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 0, 0, NULL);
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 1, 0, NULL);
+                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 0, abs(height), 0, NULL);
+                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 1, abs(height), 0, NULL);
             }
             else
             {
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 0, 0, NULL);
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 0, 0, NULL);
+                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 0, 0, 0, NULL);
+                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 0, 0, 0, NULL);
             }
             
-            if (width < -10)
+            if (width < -5)
             {
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 1, 0, NULL);
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 0, 0, NULL);
+                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 1, abs(width), 0, NULL);
+                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 0, abs(width), 0, NULL);
             }
-            else if (width > 10)
+            else if (width > 5)
             {
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 0, 0, NULL);
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 1, 0, NULL);
+                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 0, abs(width), 0, NULL);
+                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 1, abs(width), 0, NULL);
             }
             else
             {
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 0, 0, NULL);
-                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 0, 0, NULL);
+                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 0, 0, 0, NULL);
+                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 0, 0, 0, NULL);
             }
             lastKeyTime = Sys_Milliseconds();
             
@@ -83,10 +83,10 @@
         else
         {
         skipArrowKeys:
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 0, 0, NULL);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 0, 0, NULL);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 0, 0, NULL);
-            Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 0, 0, NULL);
+            Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 0, 0, 0, NULL);
+            Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 0, 0, 0, NULL);
+            Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 0, 0, 0, NULL);
+            Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 0, 0, 0, NULL);
         }
     }
 }
