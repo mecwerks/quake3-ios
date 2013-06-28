@@ -124,6 +124,8 @@ typedef enum {
 	// 1.32
 	UI_FS_SEEK,
 	UI_SET_PBCLSTATUS,
+    // ios
+    UI_DRAW_TOUCH_AREA,
 
 	UI_MEMSET = 100,
 	UI_MEMCPY,

@@ -133,7 +133,7 @@
 }
 
 - (void)_mainGameLoop {
-    if ((cls.keyCatchers & KEYCATCH_UI)/* && (cls.state != CA_ACTIVE)*/) [self _showMenuView];
+    if (cls.keyCatchers & KEYCATCH_UI) [self _showMenuView];
 	else if (cls.state == CA_ACTIVE) [self _showInGameView];
 	else [self _hideView];
 
@@ -146,8 +146,7 @@
 
 	[layer setDrawableProperties:[NSDictionary dictionaryWithObjectsAndKeys:
 			[NSNumber numberWithBool:NO], kEAGLDrawablePropertyRetainedBacking,
-			kColorFormat, kEAGLDrawablePropertyColorFormat,
-			nil]];
+			kColorFormat, kEAGLDrawablePropertyColorFormat, nil]];
 
 	if (!(_context = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES1]))
 		return NO;

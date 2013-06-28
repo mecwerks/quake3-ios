@@ -1046,8 +1046,8 @@ int CL_UISystemCalls( int *args ) {
 		return 0;
 	
 	case UI_SET_PBCLSTATUS:
-		return 0;	
-
+		return 0;
+						
 	case UI_R_REGISTERFONT:
 		re.RegisterFont( VMA(1), args[2], VMA(3));
 		return 0;

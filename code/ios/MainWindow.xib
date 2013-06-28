@@ -399,7 +399,6 @@ YnkgTWFyY3VzIENvbGxpbnM</string>
 								<int key="NSvFlags">1292</int>
 								<string key="NSFrame">{{0, 974}, {50, 50}}</string>
 								<reference key="NSSuperview" ref="460799428"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIOpaque">NO</bool>
 								<float key="IBUIAlpha">0.10000000149011612</float>
