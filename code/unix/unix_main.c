@@ -1095,7 +1095,6 @@ void Sys_QueEventEx( int time, sysEventType_t type, int value, int value2, int v
   ev->evType = type;
   ev->evValue = value;
   ev->evValue2 = value2;
-  Com_Printf("%i Sys_Que\n", value3);
   ev->evValue3 = value3;
   ev->evPtrLength = ptrLength;
   ev->evPtr = ptr;

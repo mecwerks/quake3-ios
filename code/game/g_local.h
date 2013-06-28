@@ -765,7 +765,7 @@ extern	vmCvar_t	g_enableBreath;
 extern	vmCvar_t	g_singlePlayer;
 extern	vmCvar_t	g_proxMineTimeout;
 
-#ifdef IOS
+#ifdef IOS_STATIC
 #define trap_Printf trap_qagame_Printf
 #define trap_Error trap_qagame_Error
 #define trap_Milliseconds trap_qagame_Milliseconds

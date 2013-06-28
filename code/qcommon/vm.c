@@ -485,6 +485,7 @@ vm_t *VM_Create( const char *module, int (*systemCalls)(int *),
 	}
 
 	if ( interpret == VMI_NATIVE ) {
+#if defined(IOS_STATIC) || !defined(IOS)
 		// try to load as a system dll
 		Com_Printf( "Loading dll file %s.\n", vm->name );
 		vm->dllHandle = Sys_LoadDll( module, vm->fqpath , &vm->entryPoint, VM_DllSyscall );
@@ -494,6 +495,7 @@ vm_t *VM_Create( const char *module, int (*systemCalls)(int *),
 
 		Com_Printf( "Failed to load dll, looking for qvm.\n" );
 		interpret = VMI_COMPILED;
+#endif
 	}
 
 	// load the image
@@ -547,10 +549,13 @@ vm_t *VM_Create( const char *module, int (*systemCalls)(int *),
 	// copy or compile the instructions
 	vm->codeLength = header->codeLength;
 
+#if defined(IOS_STATIC) || !defined(IOS)
 	if ( interpret >= VMI_COMPILED ) {
 		vm->compiled = qtrue;
 		VM_Compile( vm, header );
-	} else {
+	} else
+#endif
+    {
 		vm->compiled = qfalse;
 		VM_PrepareInterpreter( vm, header );
 	}
@@ -704,9 +709,13 @@ int	QDECL VM_Call( vm_t *vm, int callnum, ... ) {
                             args[4],  args[5],  args[6], args[7],
                             args[8],  args[9], args[10], args[11],
                             args[12], args[13], args[14], args[15]);
-	} else if ( vm->compiled ) {
+	}
+#if defined(IOS_STATIC) || !defined(IOS)
+    else if ( vm->compiled ) {
 		r = VM_CallCompiled( vm, &callnum );
-	} else {
+	}
+#endif
+    else {
 		r = VM_CallInterpreted( vm, &callnum );
 	}
 
@@ -832,7 +841,8 @@ void VM_LogSyscalls( int *args ) {
 
 
 
-#ifdef DLL_ONLY // bk010215 - for DLL_ONLY dedicated servers/builds w/o VM
+#if defined(DLL_ONLY) || (defined(IOS) && !defined(IOS_STATIC))
+// bk010215 - for DLL_ONLY dedicated servers/builds w/o VM
 int	VM_CallCompiled( vm_t *vm, int *args ) {
   return(0); 
 }

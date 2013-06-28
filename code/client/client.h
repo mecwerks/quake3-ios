@@ -399,7 +399,6 @@ typedef struct {
 	unsigned	msec;			// msec down this frame if both a down and up happened
 	qboolean	active;			// current state
 	qboolean	wasPressed;		// set when down, not cleared when up
-    int         amount;         // to be sent to pmove
 } kbutton_t;
 
 extern	kbutton_t	in_mlook, in_klook;

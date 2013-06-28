@@ -974,7 +974,7 @@ void CL_InitKeyCommands( void ) {
 CL_AddKeyUpCommands
 ===================
 */
-void CL_AddKeyUpCommands( int key, int amount, char *kb ) {
+void CL_AddKeyUpCommands( int key, char *kb ) {
 	int i;
 	char button[1024], *buttonPtr;
 	char	cmd[1024];
@@ -984,7 +984,6 @@ void CL_AddKeyUpCommands( int key, int amount, char *kb ) {
 		return;
 	}
 
-    Com_Printf("CL_AddUpCommands %i\n", amount);
 	keyevent = qfalse;
 	buttonPtr = button;
 	for ( i = 0; ; i++ ) {
@@ -993,15 +992,14 @@ void CL_AddKeyUpCommands( int key, int amount, char *kb ) {
 			if ( button[0] == '+') {
 				// button commands add keynum and time as parms so that multiple
 				// sources can be discriminated and subframe corrected
-                Com_Printf("%i\n", amount);
-				Com_sprintf (cmd, sizeof(cmd), "-%s %i %i %i\n", button+1, key, time, amount);
+				Com_sprintf (cmd, sizeof(cmd), "-%s %i %i\n", button+1, key, time );
 				Cbuf_AddText (cmd);
 				keyevent = qtrue;
 			} else {
 				if (keyevent) {
 					// down-only command
-					Cbuf_AddText (button);
-					Cbuf_AddText ("\n");
+                    Cbuf_AddText (button);
+                    Cbuf_AddText("\n");
 				}
 			}
 			buttonPtr = button;
@@ -1023,11 +1021,10 @@ CL_KeyEvent
 Called by the system for both key up and key down events
 ===================
 */
-void CL_KeyEvent (int key, qboolean down, int amount, unsigned time) {
+void CL_KeyEvent (int key, qboolean down, unsigned time) {
 	char	*kb;
 	char	cmd[1024];
 
-    Com_Printf("CL_KeyEvent %i\n", amount);
 	// update auto-repeat status and BUTTON_ANY status
 	keys[key].down = down;
 
@@ -1129,7 +1126,7 @@ void CL_KeyEvent (int key, qboolean down, int amount, unsigned time) {
 	if (!down) {
 		kb = keys[key].binding;
 
-		CL_AddKeyUpCommands( key, amount, kb );
+		CL_AddKeyUpCommands( key, kb );
 
 		if ( cls.keyCatchers & KEYCATCH_UI && uivm ) {
 			VM_Call( uivm, UI_KEY_EVENT, key, down );
@@ -1150,7 +1147,7 @@ void CL_KeyEvent (int key, qboolean down, int amount, unsigned time) {
 		} 
 	} else if ( cls.keyCatchers & KEYCATCH_CGAME ) {
 		if ( cgvm ) {
-			VM_Call( cgvm, CG_KEY_EVENT, key, down, amount );
+			VM_Call( cgvm, CG_KEY_EVENT, key, down );
 		} 
 	} else if ( cls.keyCatchers & KEYCATCH_MESSAGE ) {
 		Message_Key( key );
@@ -1172,15 +1169,14 @@ void CL_KeyEvent (int key, qboolean down, int amount, unsigned time) {
 				if ( kb[i] == ';' || !kb[i] ) {
 					*buttonPtr = '\0';
 					if ( button[0] == '+') {
-                        Com_Printf("Check %i\n", amount);
 						// button commands add keynum and time as parms so that multiple
 						// sources can be discriminated and subframe corrected
-						Com_sprintf (cmd, sizeof(cmd), "%s %i %i %i\n", button, key, time, amount);
+						Com_sprintf (cmd, sizeof(cmd), "%s %i %i\n", button, key, time);
 						Cbuf_AddText (cmd);
 					} else {
 						// down-only command
 						Cbuf_AddText (button);
-						Cbuf_AddText ("\n");
+                        Cbuf_AddText("\n");
 					}
 					buttonPtr = button;
 					while ( (kb[i] <= ' ' || kb[i] == ';') && kb[i] != 0 ) {
@@ -1247,7 +1243,7 @@ void Key_ClearStates (void)
 
 	for ( i=0 ; i < MAX_KEYS ; i++ ) {
 		if ( keys[i].down ) {
-			CL_KeyEvent( i, qfalse, 0, 0 );
+			CL_KeyEvent( i, qfalse, 0 );
 
 		}
 		keys[i].down = 0;

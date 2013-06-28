@@ -28,67 +28,116 @@
 	return [CAEAGLLayer class];
 }
 
-- (void)_mainGameLoop {
+- (void) _checkJoypads {
     int i;
     int width, height;
     CGPoint newLocation;
     
     for (i = 0; i < NUM_JOYPADS; i++) {
         newLocation = CGPointMake(
-            Joypad[i].oldLocation.x - Joypad[i].distanceFromCenter/4 * cosf(Joypad[i].touchAngle),
-            Joypad[i].oldLocation.y - Joypad[i].distanceFromCenter/4 * sinf(Joypad[i].touchAngle));
+                                  Joypad[i].oldLocation.x - Joypad[i].distanceFromCenter/4 * cosf(Joypad[i].touchAngle),
+                                  Joypad[i].oldLocation.y - Joypad[i].distanceFromCenter/4 * sinf(Joypad[i].touchAngle));
         width = roundf((Joypad[i].oldLocation.y - newLocation.y) * _mouseScale.x);
         height = roundf((newLocation.x - Joypad[i].oldLocation.x) * _mouseScale.y);
         
-        if (Joypad[i].distanceFromCenter > 5)
+        if (Joypad[i].distanceFromCenter > 8)
         {
-            if ( cls.keyCatchers )
-                if ((lastKeyTime && (Sys_Milliseconds() - lastKeyTime < 200 )))
-                    goto skipArrowKeys; // delay keypresses at menus
-            
+			if (i == 0 && joypadCap0.hidden) break;
+			else if (i == 1 && joypadCap1.hidden) break;
+			
+			if ((cls.keyCatchers & KEYCATCH_UI) && !(Sys_Milliseconds() - lastKeyTime >= 180))
+				goto skipkeys;
+			
             if (height < -5)
             {
-                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 1, abs(height), 0, NULL);
-                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 0, abs(height), 0, NULL);
+                cl_joyscale_x[0] = abs(height);
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 1, 0, NULL);
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 0, 0, NULL);
             }
             else if (height > 5)
             {
-                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 0, abs(height), 0, NULL);
-                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 1, abs(height), 0, NULL);
+                cl_joyscale_x[1] = height;
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 0, 0, NULL);
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 1, 0, NULL);
             }
             else
             {
-                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 0, 0, 0, NULL);
-                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 0, 0, 0, NULL);
+                cl_joyscale_x[0] = cl_joyscale_x[1] = 0;
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 0, 0, NULL);
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 0, 0, NULL);
             }
+            
+            if (i != 0) cl_joyscale_x[0] = cl_joyscale_x[1] = 0;
+            if (cl_joyscale_x[0] > 60) cl_joyscale_x[0] = 60;
+            if (cl_joyscale_x[1] > 60) cl_joyscale_x[1] = 60;
             
             if (width < -5)
             {
-                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 1, abs(width), 0, NULL);
-                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 0, abs(width), 0, NULL);
+                cl_joyscale_y[1] = abs(width);
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 1, 0, NULL);
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 0, 0, NULL);
             }
             else if (width > 5)
             {
-                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 0, abs(width), 0, NULL);
-                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 1, abs(width), 0, NULL);
+                cl_joyscale_y[0] = width;
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 0, 0, NULL);
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 1, 0, NULL);
             }
             else
             {
-                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 0, 0, 0, NULL);
-                Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 0, 0, 0, NULL);
+                cl_joyscale_y[0] = cl_joyscale_y[1] = 0;
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 0, 0, NULL);
+                Sys_QueEvent(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 0, 0, NULL);
             }
+            
+            if (i != 0) cl_joyscale_y[0] = cl_joyscale_y[1] = 0;
+            if (cl_joyscale_y[0] > 60) cl_joyscale_y[0] = 60;
+            if (cl_joyscale_y[1] > 60) cl_joyscale_y[1] = 60;
             lastKeyTime = Sys_Milliseconds();
             
         }
         else
         {
-        skipArrowKeys:
+			skipkeys:
+            if (i == 0) cl_joyscale_x[0] = cl_joyscale_x[1] = cl_joyscale_y[0] = cl_joyscale_y[1] = 0;
             Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[UP_KEY], 0, 0, 0, NULL);
             Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[DOWN_KEY], 0, 0, 0, NULL);
             Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[LEFT_KEY], 0, 0, 0, NULL);
             Sys_QueEventEx(Sys_Milliseconds(), SE_KEY, Joypad[i].keys[RIGHT_KEY], 0, 0, 0, NULL);
         }
     }
+}
+
+- (void)_showMenuView {
+    joypadCap0.hidden = NO;
+    joypadCap1.hidden = YES;
+    _enterButton.hidden = NO;
+    _escapeButton.hidden = NO;
+    _newControlView.hidden = YES;
+}
+
+- (void)_showInGameView {
+    joypadCap0.hidden = NO;
+    joypadCap1.hidden = NO;
+    _enterButton.hidden = NO;
+    _escapeButton.hidden = NO;
+    _newControlView.hidden = NO;
+}
+
+- (void)_hideView {
+    joypadCap0.hidden = YES;
+    joypadCap1.hidden = YES;
+    _enterButton.hidden = YES;
+    _escapeButton.hidden = YES;
+    _newControlView.hidden = YES;
+}
+
+- (void)_mainGameLoop {
+    if ((cls.keyCatchers & KEYCATCH_UI)/* && (cls.state != CA_ACTIVE)*/) [self _showMenuView];
+	else if (cls.state == CA_ACTIVE) [self _showInGameView];
+	else [self _hideView];
+
+	[self _checkJoypads];
 }
 
 - (BOOL)_commonInit
@@ -122,7 +171,7 @@
     Joypad[1].keys[1] = K_DEL;
     Joypad[1].keys[2] = K_SHIFT;
     Joypad[1].keys[3] = K_CTRL;
-    
+	    
 	return YES;
 }
 

@@ -100,11 +100,7 @@ void IN_KeyDown( kbutton_t *b ) {
 	// save timestamp for partial frame summing
 	c = Cmd_Argv(2);
 	b->downtime = atoi(c);
-    
-    c = Cmd_Argv(3);
-    b->amount = atoi(c);
-
-	b->active = qtrue;
+    b->active = qtrue;
 	b->wasPressed = qtrue;
 }
 
@@ -145,7 +141,6 @@ void IN_KeyUp( kbutton_t *b ) {
 		b->msec += frame_msec / 2;
 	}
 
-    b->amount = 0;
 	b->active = qfalse;
 }
 
@@ -191,19 +186,6 @@ float CL_KeyState( kbutton_t *key ) {
 
 	return val;
 }
-
-/*
- ===============
- CL_KeyState
- 
- Returns the fraction of the frame that the key was down
- ===============
- */
-float CL_KeyAmount( kbutton_t *key ) {
-//    Com_Printf("%i\n", key->amount);
-	return key->amount * 2.11;
-}
-
 
 void IN_UpDown(void) {IN_KeyDown(&in_up);}
 void IN_UpUp(void) {IN_KeyUp(&in_up);}
@@ -328,30 +310,30 @@ void CL_KeyMove( usercmd_t *cmd ) {
 	// the walking flag is to keep animations consistant
 	// even during acceleration and develeration
 	//
-//	if ( in_speed.active ^ cl_run->integer ) {
-    //cmd->buttons &= ~BUTTON_WALKING;
-//	} else {
-//		cmd->buttons |= BUTTON_WALKING;
+	if ( in_speed.active ^ cl_run->integer ) {
+        cmd->buttons &= ~BUTTON_WALKING;
+	} else {
+		cmd->buttons |= BUTTON_WALKING;
 //		movespeed = 64;
-//	}
+	}
 
 	forward = 0;
 	side = 0;
 	up = 0;
-	if ( in_strafe.active ) {
-		side += CL_KeyAmount(&in_right) * CL_KeyState (&in_right);
-		side -= CL_KeyAmount(&in_left) * CL_KeyState (&in_left);
-	}
+//	if ( in_strafe.active ) {
+//		side = cl_joyscale_y * 2 * CL_KeyState (&in_right);
+//		side -= CL_KeyAmount(&in_left) * CL_KeyState (&in_left);
+//	}
 
-	side += CL_KeyAmount(&in_moveright) * CL_KeyState (&in_moveright);
-	side -= CL_KeyAmount(&in_moveleft) * CL_KeyState (&in_moveleft);
+    side += cl_joyscale_y[0] * 2 * CL_KeyState (&in_moveright);
+	side -= cl_joyscale_y[1] * 2 * CL_KeyState (&in_moveleft);
 
 
-	up += CL_KeyAmount(&in_up) * CL_KeyState (&in_up);
-	up -= CL_KeyAmount(&in_down) * CL_KeyState (&in_down);
+//	up = cl_joyscale_x * 2 * CL_KeyState (&in_up);
+//	up -= CL_KeyAmount(&in_down) * CL_KeyState (&in_down);
 
-	forward += CL_KeyAmount(&in_forward) * CL_KeyState (&in_forward);
-	forward -= CL_KeyAmount(&in_back) * CL_KeyState (&in_back);
+	forward += cl_joyscale_x[0] * 2 * CL_KeyState (&in_forward);
+	forward -= cl_joyscale_x[1] * 2 * CL_KeyState (&in_back);
 
 	cmd->forwardmove = ClampChar( forward );
 	cmd->rightmove = ClampChar( side );

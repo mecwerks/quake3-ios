@@ -71,12 +71,22 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #define CHATMESSAGE_RECENTTIME	20
 
 //the actuall chat messages
+#ifdef IOS
 typedef struct bot_chatmessage_s
 {
 	float time;							//last time used
 	struct bot_chatmessage_s *next;		//next chat message in a list
     char *chatmessage;					//chat message string
 } __attribute__((packed)) bot_chatmessage_t;
+#else
+typedef struct bot_chatmessage_s
+{
+	float time;							//last time used
+	struct bot_chatmessage_s *next;		//next chat message in a list
+    char *chatmessage;					//chat message string
+} bot_chatmessage_t;
+#endif
+
 //bot chat type with chat lines
 typedef struct bot_chattype_s
 {
@@ -92,18 +102,27 @@ typedef struct bot_chat_s
 } bot_chat_t;
 
 //random string
+#ifdef IOS
+typedef struct bot_randomstring_s
+{
+	char *string;
+	struct bot_randomstring_s *next;
+} __attribute__((packed)) bot_randomstring_t;
+#else
 typedef struct bot_randomstring_s
 {
 	char *string;
 	struct bot_randomstring_s *next;
 } bot_randomstring_t;
+#endif
+
 //list with random strings
 typedef struct bot_randomlist_s
 {
-	char *string;
 	int numstrings;
-	bot_randomstring_t *firstrandomstring;
 	struct bot_randomlist_s *next;
+	char *string;
+	bot_randomstring_t *firstrandomstring;
 } bot_randomlist_t;
 
 //synonym
@@ -2979,7 +2998,7 @@ int BotSetupChatAI(void)
 	synonyms = BotLoadSynonyms(file);
 	file = LibVarString("rndfile", "rnd.c");
 	randomstrings = BotLoadRandomStrings(file);
-	file = LibVarString("matchfile", "match.c");
+    file = LibVarString("matchfile", "match.c");
 	matchtemplates = BotLoadMatchTemplates(file);
 	//
 	if (!LibVarValue("nochat", "0"))

@@ -42,7 +42,7 @@ MAIN MENU
 #define ID_EXIT					17
 
 #define MAIN_BANNER_MODEL				"models/mapobjects/banner/banner5.md3"
-#define MAIN_MENU_VERTICAL_SPACING		34
+#define MAIN_MENU_VERTICAL_SPACING		102
 
 
 typedef struct {
@@ -311,10 +311,10 @@ void UI_MainMenu( void ) {
 	s_main.menu.wrapAround = qtrue;
 	s_main.menu.showlogo = qtrue;
 
-	y = 134;
+	y = 150;
 	s_main.singleplayer.generic.type		= MTYPE_PTEXT;
 	s_main.singleplayer.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_main.singleplayer.generic.x			= 320;
+	s_main.singleplayer.generic.x			= 160;//320;
 	s_main.singleplayer.generic.y			= y;
 	s_main.singleplayer.generic.id			= ID_SINGLEPLAYER;
 	s_main.singleplayer.generic.callback	= Main_MenuEvent; 
@@ -325,7 +325,7 @@ void UI_MainMenu( void ) {
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.multiplayer.generic.type			= MTYPE_PTEXT;
 	s_main.multiplayer.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_main.multiplayer.generic.x			= 320;
+	s_main.multiplayer.generic.x			= 160;//320;
 	s_main.multiplayer.generic.y			= y;
 	s_main.multiplayer.generic.id			= ID_MULTIPLAYER;
 	s_main.multiplayer.generic.callback		= Main_MenuEvent; 
@@ -336,7 +336,7 @@ void UI_MainMenu( void ) {
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.setup.generic.type				= MTYPE_PTEXT;
 	s_main.setup.generic.flags				= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_main.setup.generic.x					= 320;
+	s_main.setup.generic.x					= 160;//320;
 	s_main.setup.generic.y					= y;
 	s_main.setup.generic.id					= ID_SETUP;
 	s_main.setup.generic.callback			= Main_MenuEvent; 
@@ -344,10 +344,10 @@ void UI_MainMenu( void ) {
 	s_main.setup.color						= color_red;
 	s_main.setup.style						= style;
 
-	y += MAIN_MENU_VERTICAL_SPACING;
+	y = 150;
 	s_main.demos.generic.type				= MTYPE_PTEXT;
 	s_main.demos.generic.flags				= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_main.demos.generic.x					= 320;
+	s_main.demos.generic.x					= 480;//320;
 	s_main.demos.generic.y					= y;
 	s_main.demos.generic.id					= ID_DEMOS;
 	s_main.demos.generic.callback			= Main_MenuEvent; 
@@ -358,7 +358,7 @@ void UI_MainMenu( void ) {
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.cinematics.generic.type			= MTYPE_PTEXT;
 	s_main.cinematics.generic.flags			= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_main.cinematics.generic.x				= 320;
+	s_main.cinematics.generic.x				= 480;//320;
 	s_main.cinematics.generic.y				= y;
 	s_main.cinematics.generic.id			= ID_CINEMATICS;
 	s_main.cinematics.generic.callback		= Main_MenuEvent; 
@@ -395,7 +395,7 @@ void UI_MainMenu( void ) {
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.exit.generic.type				= MTYPE_PTEXT;
 	s_main.exit.generic.flags				= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_main.exit.generic.x					= 320;
+	s_main.exit.generic.x					= 480;//320;
 	s_main.exit.generic.y					= y;
 	s_main.exit.generic.id					= ID_EXIT;
 	s_main.exit.generic.callback			= Main_MenuEvent; 

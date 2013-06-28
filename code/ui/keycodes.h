@@ -154,6 +154,8 @@ typedef enum {
 	K_LAST_KEY		// this had better be <256!
 } keyNum_t;
 
+int cl_joyscale_x[2];
+int cl_joyscale_y[2];
 
 // The menu code needs to get both key and char events, but
 // to avoid duplicating the paths, the char events are just

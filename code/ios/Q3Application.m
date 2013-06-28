@@ -204,8 +204,9 @@ static const long long kDemoPakFileSize = 46853694;
 	[device beginGeneratingDeviceOrientationNotifications];
 
 	[_loadingView removeFromSuperview];
+    
 	_screenView.hidden =  NO;
-
+    
 	[self _startRunning];
 }
 
@@ -253,11 +254,11 @@ static const long long kDemoPakFileSize = 46853694;
 
  	switch (orientation)
  	{
- 		case UIDeviceOrientationPortrait: return 0.0;
- 		case UIDeviceOrientationLandscapeRight: return 90.0;
- 		case UIDeviceOrientationPortraitUpsideDown: return 180.0;
- 		case UIDeviceOrientationLandscapeLeft: return 270.0;
-		default: NSAssert(NO, @"Grievous errors have been made..."); return 0;
+            case UIDeviceOrientationPortrait: return 90.0;//0.0;
+            case UIDeviceOrientationLandscapeRight: return 90.0;
+            case UIDeviceOrientationPortraitUpsideDown: return 90.0;//180.0;
+            case UIDeviceOrientationLandscapeLeft: return 90.0;//270.0;
+        default: NSAssert(NO, @"Grievous errors have been made..."); return 0;
  	}
 }
 

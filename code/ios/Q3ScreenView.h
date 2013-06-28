@@ -9,8 +9,6 @@
 #import	<OpenGLES/EAGLDrawable.h>
 #import	<OpenGLES/ES1/gl.h>
 
-#define moveScale_x 0.69818182
-#define moveScale_y 3.24050633
 #define NUM_JOYPADS 2
 
 @class UIImageView;
@@ -36,10 +34,11 @@ typedef struct joyPad_s {
 
 @interface Q3ScreenView : UIView
 {
-    // Joypad caps
 	IBOutlet UIImageView *joypadCap0;
     IBOutlet UIImageView *joypadCap1;
 	IBOutlet UIView *_newControlView;
+    IBOutlet UIView *_escapeButton;
+    IBOutlet UIView *_enterButton;
 
 @protected
 	EAGLContext *_context;
@@ -60,6 +59,7 @@ typedef struct joyPad_s {
 	BOOL _isShooting;
 	BOOL _isLooking;
     int lastKeyTime;
+    BOOL _inGame;
 }
 
 - initWithFrame:(CGRect)frame;

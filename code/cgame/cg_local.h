@@ -1250,7 +1250,7 @@ void CG_TileClear( void );
 void CG_ColorForHealth( vec4_t hcolor );
 void CG_GetColorForHealth( int health, int armor, vec4_t hcolor );
 
-#ifdef IOS
+#ifdef IOS_STATIC
 #define UI_DrawBannerString cgame_UI_DrawBannerString
 #define UI_ProportionalStringWidth cgame_UI_ProportionalStringWidth
 #define UI_ProportionalSizeScale cgame_UI_ProportionalSizeScale
@@ -1476,7 +1476,7 @@ void CG_CheckChangedPredictableEvents( playerState_t *ps );
 // These functions are how the cgame communicates with the main game system
 //
 
-#ifdef IOS
+#ifdef IOS_STATIC
 // print message on the local console
 #define trap_Print trap_cgame_Print
 

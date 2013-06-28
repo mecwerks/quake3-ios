@@ -618,7 +618,7 @@ void UI_SPSkillMenu_Cache( void );
 //
 // ui_syscalls.c
 //
-#ifdef IOS
+#ifdef IOS_STATIC
 #define trap_Print trap_ui_Print
 #define trap_Error trap_ui_Error
 #define trap_Milliseconds trap_ui_Milliseconds
