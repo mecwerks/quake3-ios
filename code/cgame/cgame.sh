@@ -3,9 +3,9 @@
 mkdir -p vm
 cd vm
 
-CC="q3lcc -DQ3_VM -DCGAME -S -Wf-target=bytecode -Wf-g -I../../cgame -I../../game -I../../q3_ui"
+CC="q3lcc"
+#-DQ3_VM -DCGAME -S -Wf-target=bytecode -Wf-g -I../../cgame -I../../game -I../../q3_ui"
 
-$CC ../cg_syscalls.c
 $CC ../../game/bg_misc.c
 $CC ../../game/bg_pmove.c
 $CC ../../game/bg_slidemove.c
@@ -31,6 +31,6 @@ $CC ../cg_snapshot.c
 $CC ../cg_view.c
 $CC ../cg_weapons.c
 
-q3asm -f ../cgame
+q3asm -vq3 -o cgame.qvm *.asm ../cg_syscalls.asm
 
 cd ..

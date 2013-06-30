@@ -376,7 +376,7 @@ static void UI_SPLevelMenu_ResetEvent( void* ptr, int event )
 		return;
 	}
 
-	UI_ConfirmMenu( "RESET GAME?", UI_SPLevelMenu_ResetDraw, UI_SPLevelMenu_ResetAction );
+	UI_ConfirmMenuEx( "RESET GAME?", UI_SPLevelMenu_ResetDraw, UI_SPLevelMenu_ResetAction );
 }
 
 

@@ -3,10 +3,10 @@
 mkdir -p vm
 cd vm
 
-CC="../../../tools/q3lcc -DQ3_VM -S -Wf-target=bytecode -Wf-g -I../../cgame -I../../game -I../../q3_ui"
+CC="q3lcc"
+#-DQ3_VM -S -Wf-target=bytecode -Wf-g -I../../cgame -I../../game -I../../q3_ui"
 
 $CC  ../g_main.c
-$CC  ../g_syscalls.c
 
 $CC  ../bg_misc.c
 $CC  ../bg_lib.c
@@ -43,6 +43,6 @@ $CC  ../g_trigger.c
 $CC  ../g_utils.c
 $CC  ../g_weapon.c
 
-../../../tools/q3asm -vq3 -f ../game
+q3asm -vq3 -o qagame.qvm *.asm ../g_syscalls.asm
 
 cd ..

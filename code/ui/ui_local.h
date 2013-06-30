@@ -213,7 +213,7 @@ typedef struct
 	int	bottom;
 	menuframework_s *parent;
 	int menuPosition;
-	unsigned flags;
+	unsigned int flags;
 
 	void (*callback)( void *self, int event );
 	void (*statusbar)( void *self );
@@ -384,7 +384,8 @@ extern void UI_InGameMenu(void);
 // ui_confirm.c
 //
 extern void ConfirmMenu_Cache( void );
-extern void UI_ConfirmMenu( const char *question, void (*draw)( void ), void (*action)( qboolean result ) );
+extern void UI_ConfirmMenu( const char *question, void (*action)( qboolean result ) );
+extern void UI_ConfirmMenuEx( const char *question, void (*draw)( void ), void (*action)( qboolean result ) );
 
 //
 // ui_setup.c

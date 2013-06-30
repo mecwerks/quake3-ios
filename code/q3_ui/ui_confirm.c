@@ -238,7 +238,11 @@ void UI_ConfirmMenu_Style( const char *question, int style, void (*draw)( void )
 UI_ConfirmMenu
 =================
 */
-void UI_ConfirmMenu( const char *question, void (*draw)( void ), void (*action)( qboolean result ) ) {
+void UI_ConfirmMenu( const char *question, void (*action)(qboolean result) ) {
+	UI_ConfirmMenu_Style(question, UI_CENTER|UI_INVERSE, UI_voidfunc, action);
+}
+
+void UI_ConfirmMenuEx( const char *question, void (*draw)( void ), void (*action)( qboolean result ) ) {
 	UI_ConfirmMenu_Style(question, UI_CENTER|UI_INVERSE, draw, action);
 }
 
