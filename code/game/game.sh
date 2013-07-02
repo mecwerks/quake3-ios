@@ -43,6 +43,40 @@ $CC  ../g_trigger.c
 $CC  ../g_utils.c
 $CC  ../g_weapon.c
 
-q3asm -vq3 -o qagame.qvm *.asm ../g_syscalls.asm
+q3asm -vq3 -o qagame.qvm \
+g_main.asm \
+bg_misc.asm \
+bg_lib.asm \
+bg_pmove.asm \
+bg_slidemove.asm \
+q_math.asm \
+q_shared.asm \
+ai_vcmd.asm \
+ai_dmnet.asm \
+ai_dmq3.asm \
+ai_main.asm \
+ai_chat.asm \
+ai_cmd.asm \
+ai_team.asm \
+g_active.asm \
+g_arenas.asm \
+g_bot.asm \
+g_client.asm \
+g_cmds.asm \
+g_combat.asm \
+g_items.asm \
+g_mem.asm \
+g_misc.asm \
+g_missile.asm \
+g_mover.asm \
+g_session.asm \
+g_spawn.asm \
+g_svcmds.asm \
+g_target.asm \
+g_team.asm \
+g_trigger.asm \
+g_utils.asm \
+g_weapon.asm \
+../g_syscalls.asm
 
 cd ..

@@ -31,6 +31,31 @@ $CC ../cg_snapshot.c
 $CC ../cg_view.c
 $CC ../cg_weapons.c
 
-q3asm -vq3 -o cgame.qvm *.asm ../cg_syscalls.asm
+q3asm -vq3 -o cgame.qvm \
+cg_main.asm \
+bg_misc.asm \
+bg_pmove.asm \
+bg_slidemove.asm \
+bg_lib.asm \
+q_math.asm \
+q_shared.asm \
+cg_consolecmds.asm \
+cg_draw.asm \
+cg_drawtools.asm \
+cg_effects.asm \
+cg_ents.asm \
+cg_event.asm \
+cg_info.asm \
+cg_localents.asm \
+cg_marks.asm \
+cg_players.asm \
+cg_playerstate.asm \
+cg_predict.asm \
+cg_scoreboard.asm \
+cg_servercmds.asm \
+cg_snapshot.asm \
+cg_view.asm \
+cg_weapons.asm \
+../cg_syscalls.asm
 
 cd ..

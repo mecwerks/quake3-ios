@@ -51,9 +51,9 @@ $CC ../ui_teamorders.c
 $CC ../ui_mods.c
 
 q3asm -vq3 -o ui.qvm \
+ui_main.asm \
 bg_lib.asm \
 bg_misc.asm \
-ui_main.asm \
 ui_addbots.asm \
 ui_atoms.asm \
 ui_cdkey.asm \
