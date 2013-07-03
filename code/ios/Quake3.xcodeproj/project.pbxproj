@@ -10,6 +10,7 @@
 		1D3623EC0D0F72F000981E51 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */; };
 		1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D30AB110D05D00D00671497 /* Foundation.framework */; };
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
+		2C2675981784AC7400AB9F33 /* pak9.pk3 in Resources */ = {isa = PBXBuildFile; fileRef = 2C2675971784AC7400AB9F33 /* pak9.pk3 */; };
 		2C7A7BA41767DA0000BEA13E /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7A7BA31767DA0000BEA13E /* Default@2x.png */; };
 		2C7A7BAD1767E62E00BEA13E /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2C7A7BAC1767E62E00BEA13E /* Default-568h@2x.png */; };
 		2CB3673E177A1027000C041F /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = FDBBE37D0E2ADFD400A186BC /* MainWindow.xib */; };
@@ -172,7 +173,6 @@
 		2CB367DD177A1027000C041F /* libcgame.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FDC1CA490F848806004149B3 /* libcgame.a */; settings = {ATTRIBUTES = (Required, ); }; };
 		2CB367DE177A1027000C041F /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = FDBE317D0FF09EB600FBA47B /* libz.dylib */; };
 		2CB367DF177A1027000C041F /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD05A0CC13C1CAAA0038165B /* AudioToolbox.framework */; };
-		2CB8F8BB177F5D04009499AF /* vm.pk3 in Resources */ = {isa = PBXBuildFile; fileRef = 2CB8F8BA177F5D04009499AF /* vm.pk3 */; };
 		FD05A01913C1B8D70038165B /* ios_snddma.c in Sources */ = {isa = PBXBuildFile; fileRef = FD05A01813C1B8D70038165B /* ios_snddma.c */; };
 		FD05A0CD13C1CAAA0038165B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FD05A0CC13C1CAAA0038165B /* AudioToolbox.framework */; };
 		FD1E69480E6FC951004A4AC6 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = FD1E69470E6FC951004A4AC6 /* Icon.png */; };
@@ -456,6 +456,10 @@
 		1D3623EB0D0F72F000981E51 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		1D6058910D05DD3D006BFB54 /* Quake3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Quake3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2C2675941784AC5300AB9F33 /* build-vms.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = "build-vms.sh"; path = "../../build-vms.sh"; sourceTree = "<group>"; };
+		2C2675951784AC5300AB9F33 /* default.cfg */ = {isa = PBXFileReference; lastKnownFileType = text; name = default.cfg; path = ../../default.cfg; sourceTree = "<group>"; };
+		2C2675961784AC5300AB9F33 /* mod_compatability */ = {isa = PBXFileReference; lastKnownFileType = text; name = mod_compatability; path = ../../mod_compatability; sourceTree = "<group>"; };
+		2C2675971784AC7400AB9F33 /* pak9.pk3 */ = {isa = PBXFileReference; lastKnownFileType = file; name = pak9.pk3; path = ../../pak9.pk3; sourceTree = "<group>"; };
 		2C7A7BA31767DA0000BEA13E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		2C7A7BAC1767E62E00BEA13E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		2C9FE57E1779E324006159F7 /* cg_local.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = cg_local.h; sourceTree = "<group>"; };
@@ -548,7 +552,6 @@
 		2CB367E5177A1028000C041F /* Quake3 copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Quake3 copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CB367ED177A141E000C041F /* StaticInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = StaticInfo.plist; sourceTree = "<group>"; };
 		2CB367EE177A141F000C041F /* VMsInfo.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = VMsInfo.plist; sourceTree = "<group>"; };
-		2CB8F8BA177F5D04009499AF /* vm.pk3 */ = {isa = PBXFileReference; lastKnownFileType = file; name = vm.pk3; path = ../../vm.pk3; sourceTree = "<group>"; };
 		2CB8F8BC177F7CCD009499AF /* cm_local.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cm_local.h; sourceTree = "<group>"; };
 		2CB8F8BD177F7CCD009499AF /* cm_patch.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cm_patch.h; sourceTree = "<group>"; };
 		2CB8F8BE177F7CCD009499AF /* cm_polylib.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cm_polylib.h; sourceTree = "<group>"; };
@@ -564,7 +567,6 @@
 		FD05A0CC13C1CAAA0038165B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		FD1E69470E6FC951004A4AC6 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		FD1F2ECC0E2B21EB00DF2240 /* bg_misc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; lineEnding = 0; path = bg_misc.c; sourceTree = "<group>"; };
-		FD228FA50ED0F8B50097A222 /* default.cfg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = default.cfg; sourceTree = "<group>"; };
 		FD261F0D0ECC15470022D939 /* Q3Application.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Q3Application.h; sourceTree = "<group>"; tabWidth = 4; };
 		FD261F0E0ECC15470022D939 /* Q3Application.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Q3Application.m; sourceTree = "<group>"; tabWidth = 4; };
 		FD4BE73E103D1BA100A9AC33 /* Q3Downloader.h */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = Q3Downloader.h; sourceTree = "<group>"; tabWidth = 4; };
@@ -931,6 +933,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				2C2675971784AC7400AB9F33 /* pak9.pk3 */,
 				080E96DDFE201D6D7F000001 /* Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -943,11 +946,13 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				2CB8F8BA177F5D04009499AF /* vm.pk3 */,
 				2CB367ED177A141E000C041F /* StaticInfo.plist */,
 				2CB367EE177A141F000C041F /* VMsInfo.plist */,
 				2C7A7BAC1767E62E00BEA13E /* Default-568h@2x.png */,
 				2C7A7BA31767DA0000BEA13E /* Default@2x.png */,
+				2C2675941784AC5300AB9F33 /* build-vms.sh */,
+				2C2675951784AC5300AB9F33 /* default.cfg */,
+				2C2675961784AC5300AB9F33 /* mod_compatability */,
 				FDEC0B021568D0CC0063201B /* ball.png */,
 				FDEC0B031568D0CC0063201B /* Default.png */,
 				FDEC0B041568D0CC0063201B /* Default~ipad.png */,
@@ -958,7 +963,6 @@
 				FD1E69470E6FC951004A4AC6 /* Icon.png */,
 				FD8DE2C10E7CFE0A00C1032C /* banner.jpg */,
 				FDBBE37D0E2ADFD400A186BC /* MainWindow.xib */,
-				FD228FA50ED0F8B50097A222 /* default.cfg */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1553,7 +1557,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CB8F8BB177F5D04009499AF /* vm.pk3 in Resources */,
+				2C2675981784AC7400AB9F33 /* pak9.pk3 in Resources */,
 				FDBBE37E0E2ADFD400A186BC /* MainWindow.xib in Resources */,
 				FD1E69480E6FC951004A4AC6 /* Icon.png in Resources */,
 				FD8DE2C20E7CFE0A00C1032C /* banner.jpg in Resources */,
@@ -2065,6 +2069,7 @@
 					BOTLIB,
 					C_ONLY,
 					QGL_CHECK_GL_ERRORS,
+					MOD_COMPATABILITY,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/VMsInfo.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
@@ -2085,6 +2090,7 @@
 					BOTLIB,
 					C_ONLY,
 					NDEBUG,
+					MOD_COMPATABILITY,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/VMsInfo.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
@@ -2253,6 +2259,7 @@
 					BOTLIB,
 					C_ONLY,
 					NDEBUG,
+					MOD_COMPATABILITY,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/VMsInfo.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;

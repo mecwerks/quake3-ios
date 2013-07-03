@@ -74,6 +74,7 @@ static void UI_Mods_MenuEvent( void *ptr, int event ) {
 	}
 
 	switch ( ((menucommon_s*)ptr)->id ) {
+	case ID_LIST:
 	case ID_GO:
 		trap_Cvar_Set( "fs_game", s_mods.fs_gameList[s_mods.list.curvalue] );
 		trap_Cmd_ExecuteText( EXEC_APPEND, "vid_restart;" );
@@ -151,7 +152,7 @@ static void UI_Mods_LoadMods( void ) {
 	int		numdirs;
 	char	dirlist[2048];
 	char	*dirptr;
-  char  *descptr;
+	char	*descptr;
 	int		i;
 	int		dirlen;
 
@@ -168,9 +169,9 @@ static void UI_Mods_LoadMods( void ) {
 	dirptr  = dirlist;
 	for( i = 0; i < numdirs; i++ ) {
 		dirlen = strlen( dirptr ) + 1;
-    descptr = dirptr + dirlen;
-  	UI_Mods_ParseInfos( dirptr, descptr);
-    dirptr += dirlen + strlen(descptr) + 1;
+		descptr = dirptr + dirlen;
+		UI_Mods_ParseInfos( dirptr, descptr);
+		dirptr += dirlen + strlen(descptr) + 1;
 	}
 
 	trap_Print( va( "%i mods parsed\n", s_mods.list.numitems ) );
@@ -242,6 +243,7 @@ static void UI_Mods_MenuInit( void ) {
 	s_mods.list.generic.flags		= QMF_PULSEIFFOCUS|QMF_CENTER_JUSTIFY;
 	s_mods.list.generic.callback	= UI_Mods_MenuEvent;
 	s_mods.list.generic.id			= ID_LIST;
+	s_mods.list.generic.callback		= UI_Mods_MenuEvent;
 	s_mods.list.generic.x			= 320;
 	s_mods.list.generic.y			= 130;
 	s_mods.list.width				= 48;

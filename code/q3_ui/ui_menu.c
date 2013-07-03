@@ -35,10 +35,10 @@ MAIN MENU
 #define ID_SINGLEPLAYER			10
 #define ID_MULTIPLAYER			11
 #define ID_SETUP				12
-#define ID_DEMOS				13
+//#define ID_DEMOS				13
 #define ID_CINEMATICS			14
 //#define ID_TEAMARENA		15
-//#define ID_MODS					16
+#define ID_MODS					16
 #define ID_EXIT					17
 
 #define MAIN_BANNER_MODEL				"models/mapobjects/banner/banner5.md3"
@@ -51,10 +51,10 @@ typedef struct {
 	menutext_s		singleplayer;
 	menutext_s		multiplayer;
 	menutext_s		setup;
-	menutext_s		demos;
+//	menutext_s		demos;
 	menutext_s		cinematics;
 //	menutext_s		teamArena;
-//	menutext_s		mods;
+	menutext_s		mods;
 	menutext_s		exit;
 
 	qhandle_t		bannerModel;
@@ -107,19 +107,19 @@ void Main_MenuEvent (void* ptr, int event) {
 	case ID_SETUP:
 		UI_SetupMenu();
 		break;
-
+/*
 	case ID_DEMOS:
 		UI_DemosMenu();
 		break;
-
+*/
 	case ID_CINEMATICS:
 		UI_CinematicsMenu();
 		break;
-/*
+
 	case ID_MODS:
 		UI_ModsMenu();
 		break;
-
+/*
 	case ID_TEAMARENA:
 		trap_Cvar_Set( "fs_game", "missionpack");
 		trap_Cmd_ExecuteText( EXEC_APPEND, "vid_restart;" );
@@ -343,8 +343,8 @@ void UI_MainMenu( void ) {
 	s_main.setup.string						= "SETUP";
 	s_main.setup.color						= color_red;
 	s_main.setup.style						= style;
-
-	y = 150;
+/*
+	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.demos.generic.type				= MTYPE_PTEXT;
 	s_main.demos.generic.flags				= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
 	s_main.demos.generic.x					= 480;//320;
@@ -354,8 +354,8 @@ void UI_MainMenu( void ) {
 	s_main.demos.string						= "DEMOS";
 	s_main.demos.color						= color_red;
 	s_main.demos.style						= style;
-
-	y += MAIN_MENU_VERTICAL_SPACING;
+*/
+	y = 150;
 	s_main.cinematics.generic.type			= MTYPE_PTEXT;
 	s_main.cinematics.generic.flags			= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
 	s_main.cinematics.generic.x				= 480;//320;
@@ -380,18 +380,18 @@ void UI_MainMenu( void ) {
 		s_main.teamArena.color					= color_red;
 		s_main.teamArena.style					= style;
 	}
-
+*/
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.mods.generic.type			= MTYPE_PTEXT;
 	s_main.mods.generic.flags			= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
-	s_main.mods.generic.x				= 320;
+	s_main.mods.generic.x				= 480;//320;
 	s_main.mods.generic.y				= y;
 	s_main.mods.generic.id				= ID_MODS;
 	s_main.mods.generic.callback		= Main_MenuEvent; 
 	s_main.mods.string					= "MODS";
 	s_main.mods.color					= color_red;
 	s_main.mods.style					= style;
-*/
+
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.exit.generic.type				= MTYPE_PTEXT;
 	s_main.exit.generic.flags				= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
@@ -406,12 +406,12 @@ void UI_MainMenu( void ) {
 	Menu_AddItem( &s_main.menu,	&s_main.singleplayer );
 	Menu_AddItem( &s_main.menu,	&s_main.multiplayer );
 	Menu_AddItem( &s_main.menu,	&s_main.setup );
-	Menu_AddItem( &s_main.menu,	&s_main.demos );
+//	Menu_AddItem( &s_main.menu,	&s_main.demos );
 	Menu_AddItem( &s_main.menu,	&s_main.cinematics );
 //	if (teamArena) {
 //		Menu_AddItem( &s_main.menu,	&s_main.teamArena );
 //	}
-//	Menu_AddItem( &s_main.menu,	&s_main.mods );
+	Menu_AddItem( &s_main.menu,	&s_main.mods );
 	Menu_AddItem( &s_main.menu,	&s_main.exit );             
 
 	trap_Key_SetCatcher( KEYCATCH_UI );

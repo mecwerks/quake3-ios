@@ -283,13 +283,17 @@ GLimp_SetMode(float rotation)
 	if (cls.uiStarted)
 	{
 		cls.glconfig = glConfig;
+#ifndef MOD_COMPATABILITY
 		VM_Call(uivm, UI_UPDATE_GLCONFIG);
+#endif
 	}
 	
 	if (cls.state == CA_ACTIVE)
 	{
 		cls.glconfig = glConfig;
+#ifndef MOD_COMPATABILITY
 		VM_Call(cgvm, CG_UPDATE_GLCONFIG);
+#endif
 	}
 }
 

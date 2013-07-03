@@ -17,6 +17,8 @@ cd ../q3_ui
 ./q3_ui.sh
 cp vm/ui.qvm ../../vm/
 
-echo "Packaging vm.pk3"
+echo "Packaging pak9.pk3 with config file"
 cd ../../
-zip vm.pk3 vm/*
+zip -u pak9.pk3 vm/*
+zip -u pak9.pk3 default.cfg
+rm -rf vm/
