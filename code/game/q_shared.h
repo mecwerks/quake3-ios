@@ -800,6 +800,7 @@ void PerpendicularVector( vec3_t dst, const vec3_t src );
 
 //=============================================
 
+void Com_Crash_f( void );
 float Com_Clamp( float min, float max, float value );
 
 char	*COM_SkipPath( char *pathname );

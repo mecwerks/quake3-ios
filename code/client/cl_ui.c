@@ -1168,11 +1168,14 @@ void CL_InitUI( void ) {
 #if defined(IOS) && !defined(IOS_STATIC)
     interpret = VMI_BYTECODE;
 #else
+#ifndef NO_VM_COMPILED
 	if ( cl_connectedToPureServer != 0 ) {
 		// if sv_pure is set we only allow qvms to be loaded
 		interpret = VMI_COMPILED;
 	}
-	else {
+	else
+#endif
+	{
 		interpret = Cvar_VariableValue( "vm_ui" );
 	}
 #endif

@@ -68,10 +68,6 @@ void VM_Init( void ) {
 	Cvar_Get( "vm_cgame", "0", CVAR_ARCHIVE );
 	Cvar_Get( "vm_game", "0", CVAR_ARCHIVE );
 	Cvar_Get( "vm_ui", "0", CVAR_ARCHIVE );
-#elif IOS && !IOS_STATIC
-	Cvar_Get( "vm_cgame", "1", CVAR_ARCHIVE );	// !@# SHIP WITH SET TO 2
-	Cvar_Get( "vm_game", "1", CVAR_ARCHIVE );	// !@# SHIP WITH SET TO 2
-	Cvar_Get( "vm_ui", "1", CVAR_ARCHIVE );		// !@# SHIP WITH SET TO 2
 #else
 	Cvar_Get( "vm_cgame", "2", CVAR_ARCHIVE );	// !@# SHIP WITH SET TO 2
 	Cvar_Get( "vm_game", "2", CVAR_ARCHIVE );	// !@# SHIP WITH SET TO 2
@@ -496,10 +492,9 @@ vm_t *VM_Create( const char *module, int (*systemCalls)(int *),
 		if ( vm->dllHandle ) {
 			return vm;
 		}
-
+#endif
 		Com_Printf( "Failed to load dll, looking for qvm.\n" );
 		interpret = VMI_COMPILED;
-#endif
 	}
 
 	// load the image
@@ -677,16 +672,17 @@ an OP_ENTER instruction, which will subtract space for
 locals from sp
 ==============
 */
+#define ARRAY_LEN(x)			(sizeof(x) / sizeof(*(x)))
+#define MAX_VMMAIN_ARGS 13
 #define	MAX_STACK	256
 #define	STACK_MASK	(MAX_STACK-1)
 
-int	QDECL VM_Call( vm_t *vm, int callnum, ... ) {
+int	QDECL VM_Call(vm_t *vm, int callnum, ... ) {
 	vm_t	*oldVM;
 	int		r;
 	int i;
 	int args[16];
 	va_list ap;
-
 
 	if ( !vm ) {
 		Com_Error( ERR_FATAL, "VM_Call with NULL vm" );
@@ -699,7 +695,7 @@ int	QDECL VM_Call( vm_t *vm, int callnum, ... ) {
 	if ( vm_debugLevel ) {
 	  Com_Printf( "VM_Call( %i )\n", callnum );
 	}
-
+	
 	// if we have a dll loaded, call it directly
 	if ( vm->entryPoint ) {
 		//rcg010207 -  see dissertation at top of VM_DllSyscall() in this file.
@@ -714,13 +710,34 @@ int	QDECL VM_Call( vm_t *vm, int callnum, ... ) {
                             args[8],  args[9], args[10], args[11],
                             args[12], args[13], args[14], args[15]);
 	}
-#if defined(IOS_STATIC) || !defined(IOS)
-    else if ( vm->compiled ) {
-		r = VM_CallCompiled( vm, &callnum );
-	}
-#endif
     else {
-		r = VM_CallInterpreted( vm, &callnum );
+#if ( id386 || idsparc ) && !defined __clang__ // calling convention doesn't need conversion in some cases
+#ifndef NO_VM_COMPILED
+		if ( vm->compiled )
+			r = VM_CallCompiled( vm, (int*)&callnum );
+		else
+#endif
+			r = VM_CallInterpreted( vm, (int*)&callnum );
+#else
+		struct {
+			int callnum;
+			int args[MAX_VMMAIN_ARGS-1];
+		} a;
+		va_list ap;
+		
+		a.callnum = callnum;
+		va_start(ap, callnum);
+		for (i = 0; i < ARRAY_LEN(a.args); i++) {
+			a.args[i] = va_arg(ap, int);
+		}
+		va_end(ap);
+#ifndef NO_VM_COMPILED
+		if ( vm->compiled )
+			r = VM_CallCompiled( vm, &a.callnum );
+		else
+#endif
+			r = VM_CallInterpreted( vm, &a.callnum );
+#endif
 	}
 
 	if ( oldVM != NULL ) // bk001220 - assert(currentVM!=NULL) for oldVM==NULL
