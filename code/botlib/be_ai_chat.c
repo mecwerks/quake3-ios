@@ -101,20 +101,28 @@ typedef struct bot_chat_s
 	bot_chattype_t *types;
 } bot_chat_t;
 
-//random string
 #ifdef IOS
+//random string
 typedef struct bot_randomstring_s
 {
 	char *string;
 	struct bot_randomstring_s *next;
 } __attribute__((packed)) bot_randomstring_t;
+
+//list with random strings
+typedef struct bot_randomlist_s
+{
+	int numstrings;
+	struct bot_randomlist_s *next;
+	char *string;
+	bot_randomstring_t *firstrandomstring;
+} __attribute__((packed)) bot_randomlist_t;
 #else
 typedef struct bot_randomstring_s
 {
 	char *string;
 	struct bot_randomstring_s *next;
 } bot_randomstring_t;
-#endif
 
 //list with random strings
 typedef struct bot_randomlist_s
@@ -124,6 +132,7 @@ typedef struct bot_randomlist_s
 	char *string;
 	bot_randomstring_t *firstrandomstring;
 } bot_randomlist_t;
+#endif
 
 //synonym
 typedef struct bot_synonym_s
