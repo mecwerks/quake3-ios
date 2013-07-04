@@ -10,6 +10,7 @@
 #import	<OpenGLES/ES1/glext.h>
 #import	<UIKit/UITouch.h>
 #import <UIKit/UIImageView.h>
+#import <UIKit/UIScreen.h>
 
 #include "../ui/keycodes.h"
 #include "../renderer/tr_local.h"
@@ -234,6 +235,7 @@
 - (BOOL)_createSurface
 {
 	CAEAGLLayer *layer = (CAEAGLLayer *)self.layer;
+
 	GLint oldFrameBuffer, oldRenderBuffer;
 
 	if (![EAGLContext setCurrentContext:_context])

@@ -11,6 +11,7 @@
 #import <UIKit/UIProgressView.h>
 #import <UIKit/UIActivityIndicatorView.h>
 #import <UIKit/UILabel.h>
+#import <UIKit/UIScreen.h>
 #include "ios_local.h"
 #include "../renderer/tr_local.h"
 #include "../client/client.h"
@@ -206,7 +207,7 @@ static const long long kDemoPakFileSize = 46853694;
 	[_loadingView removeFromSuperview];
     
 	_screenView.hidden =  NO;
-    
+
 	[self _startRunning];
 }
 
@@ -248,18 +249,58 @@ static const long long kDemoPakFileSize = 46853694;
 - (float)deviceRotation
 {
  	UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-
+	BOOL Retina = FALSE, iPad = FALSE;
+#ifndef VM_COMPATABILITY
+	int temp;
+#endif
+	
 	if (!UIDeviceOrientationIsValidInterfaceOrientation(orientation))
 		orientation = UIDeviceOrientationPortrait;
 
- 	switch (orientation)
- 	{
-            case UIDeviceOrientationPortrait: return 90.0;//0.0;
-            case UIDeviceOrientationLandscapeRight: return 90.0;
-            case UIDeviceOrientationPortraitUpsideDown: return 90.0;//180.0;
-            case UIDeviceOrientationLandscapeLeft: return 90.0;//270.0;
-        default: NSAssert(NO, @"Grievous errors have been made..."); return 0;
- 	}
+	if ([[UIScreen mainScreen] scale] > 1)
+		Retina = true;
+    
+	
+	if ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad)
+		iPad = true;
+	
+	if (iPad) {
+		if (Retina) {
+			device_height = 2048;
+			device_width = 1536;
+		} else {
+			device_height = 1024;
+			device_width = 768;
+		}
+	} else {
+		if (Retina) {
+			device_width = 640;
+			if (IS_IPHONE_5) {
+				device_height = 1136;
+			} else {
+				device_height = 960;
+			}
+		} else {
+			device_width = 320;
+			device_height = 480;
+		}
+	}
+
+	device_scale = [[UIScreen mainScreen] scale];
+	
+	switch (orientation) {
+#ifndef VM_COMPATABILITY
+		case UIDeviceOrientationPortrait: return 0.0;
+		case UIDeviceOrientationPortraitUpsideDown: return 180.0;
+		case UIDeviceOrientationLandscapeLeft: return 270.0;
+#else
+		case UIDeviceOrientationPortrait:
+		case UIDeviceOrientationPortraitUpsideDown:
+		case UIDeviceOrientationLandscapeLeft:
+#endif
+		case UIDeviceOrientationLandscapeRight: return 90.0;
+		default: NSAssert(NO, @"Grievous errors have been made..."); return 0;
+	}
 }
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex

@@ -5,7 +5,6 @@
  */
 
 #import	"ios_local.h"
-
 #import	"Q3Application.h"
 
 

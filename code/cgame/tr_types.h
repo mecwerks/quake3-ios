@@ -192,6 +192,7 @@ typedef struct {
 	// normal screens should be 4/3, but wide aspect monitors may be 16/9
 	float					windowAspect;
 
+	float					resolutionScale;
 #ifdef IOS
 	float					vidRotation;
 #endif // IOS

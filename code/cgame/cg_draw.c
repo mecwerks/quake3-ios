@@ -280,6 +280,9 @@ void CG_Draw3DModel( float x, float y, float w, float h, qhandle_t model, qhandl
 
 	CG_AdjustFrom640( &x, &y, &w, &h );
 
+	x /= cgs.glconfig.resolutionScale;
+	y /= cgs.glconfig.resolutionScale;
+	
 	memset( &refdef, 0, sizeof( refdef ) );
 
 	memset( &ent, 0, sizeof( ent ) );

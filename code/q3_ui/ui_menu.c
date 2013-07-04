@@ -177,6 +177,8 @@ static void Main_MenuDraw( void ) {
 	w = 640;
 	h = 120;
 	UI_AdjustFrom640( &x, &y, &w, &h );
+	x /= uis.glconfig.resolutionScale;
+	y /= uis.glconfig.resolutionScale;
 	refdef.x = x;
 	refdef.y = y;
 	refdef.width = w;

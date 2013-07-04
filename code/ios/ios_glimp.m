@@ -266,24 +266,27 @@ GLimp_SetMode(float rotation)
 	glConfig.isFullscreen = qtrue;
  	if (rotation == 0 || rotation == 180)
  	{
- 		glConfig.vidWidth = frame.size.width;
- 		glConfig.vidHeight = frame.size.height;
+ 		glConfig.vidWidth = device_width;
+		glConfig.vidHeight = device_height;
+		glConfig.resolutionScale = device_scale * (device_width/device_height);
  	}
  	else
  	{
-		glConfig.vidWidth = frame.size.height;
-		glConfig.vidHeight = frame.size.width;
- 	}
+		glConfig.vidWidth = device_height;
+		glConfig.vidHeight = device_width;
+		glConfig.resolutionScale = device_scale * (device_height/device_width);
+	}
+	
 	glConfig.windowAspect = (float)glConfig.vidWidth / glConfig.vidHeight;
 	glConfig.colorBits = [_screenView numColorBits];
 	glConfig.depthBits = [_screenView numDepthBits];
 	glConfig.stencilBits = 0;
 	glConfig.vidRotation = rotation;
-
+	
 	if (cls.uiStarted)
 	{
 		cls.glconfig = glConfig;
-#ifndef MOD_COMPATABILITY
+#ifndef VM_COMPATABILITY
 		VM_Call(uivm, UI_UPDATE_GLCONFIG);
 #endif
 	}
@@ -291,7 +294,7 @@ GLimp_SetMode(float rotation)
 	if (cls.state == CA_ACTIVE)
 	{
 		cls.glconfig = glConfig;
-#ifndef MOD_COMPATABILITY
+#ifndef VM_COMPATABILITY
 		VM_Call(cgvm, CG_UPDATE_GLCONFIG);
 #endif
 	}
