@@ -271,8 +271,8 @@ GLimp_SetMode(float rotation)
  	}
  	else
  	{
- 		glConfig.vidWidth = frame.size.height;
- 		glConfig.vidHeight = frame.size.width;
+		glConfig.vidWidth = frame.size.height;
+		glConfig.vidHeight = frame.size.width;
  	}
 	glConfig.windowAspect = (float)glConfig.vidWidth / glConfig.vidHeight;
 	glConfig.colorBits = [_screenView numColorBits];

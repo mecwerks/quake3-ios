@@ -1,0 +1,50 @@
+/*
+================================================================================
+ Mod Compatability List
+
+ This is a list of Quake3 Mods and there current playability status when run 
+ from quake3-ios.
+================================================================================
+*/
+
+//==============================================================================
+- 24h Mod
+
+ Version: 1.4
+	Status: WORKS
+	Notes: N/A
+	Date: 7/3/13
+//==============================================================================
+- Bid For Power
+
+ Version: 1.2
+	Status: WORKS
+	Notes: Needs enhancments
+	Date: 7/3/13
+//==============================================================================
+- Team Rocket Extreme
+
+ Version: 2
+ 	Status: WORKS
+	Notes: N/A
+	Date: 7/3/13
+//==============================================================================
+- UrbanTerror
+
+ Version: 4.1.1
+	Status: WORKS
+	Notes: com_hunkmegs needs to be at least 200, needs a specialized ingame 
+			control system (for reload, bandage, etc.)
+	Date: 7/3/13
+ Version: 4.2
+	Status: CRASHES
+	Notes: invalid cvar string error
+	Date: 7/3/13
+//==============================================================================
+- World Of Padman
+
+ Version: 1.5
+	Status: CRASHES
+	Notes: vm/ui.qvm has bad header
+	Date: 7/3/13
+//==============================================================================

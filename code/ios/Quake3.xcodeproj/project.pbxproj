@@ -458,7 +458,6 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2C2675941784AC5300AB9F33 /* build-vms.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; name = "build-vms.sh"; path = "../../build-vms.sh"; sourceTree = "<group>"; };
 		2C2675951784AC5300AB9F33 /* default.cfg */ = {isa = PBXFileReference; lastKnownFileType = text; name = default.cfg; path = ../../default.cfg; sourceTree = "<group>"; };
-		2C2675961784AC5300AB9F33 /* mod_compatability */ = {isa = PBXFileReference; lastKnownFileType = text; name = mod_compatability; path = ../../mod_compatability; sourceTree = "<group>"; };
 		2C2675971784AC7400AB9F33 /* pak9.pk3 */ = {isa = PBXFileReference; lastKnownFileType = file; name = pak9.pk3; path = ../../pak9.pk3; sourceTree = "<group>"; };
 		2C7A7BA31767DA0000BEA13E /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		2C7A7BAC1767E62E00BEA13E /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
@@ -933,7 +932,6 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				2C2675971784AC7400AB9F33 /* pak9.pk3 */,
 				080E96DDFE201D6D7F000001 /* Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
@@ -946,13 +944,13 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				2C2675951784AC5300AB9F33 /* default.cfg */,
+				2C2675971784AC7400AB9F33 /* pak9.pk3 */,
+				2C2675941784AC5300AB9F33 /* build-vms.sh */,
 				2CB367ED177A141E000C041F /* StaticInfo.plist */,
 				2CB367EE177A141F000C041F /* VMsInfo.plist */,
 				2C7A7BAC1767E62E00BEA13E /* Default-568h@2x.png */,
 				2C7A7BA31767DA0000BEA13E /* Default@2x.png */,
-				2C2675941784AC5300AB9F33 /* build-vms.sh */,
-				2C2675951784AC5300AB9F33 /* default.cfg */,
-				2C2675961784AC5300AB9F33 /* mod_compatability */,
 				FDEC0B021568D0CC0063201B /* ball.png */,
 				FDEC0B031568D0CC0063201B /* Default.png */,
 				FDEC0B041568D0CC0063201B /* Default~ipad.png */,
@@ -2069,7 +2067,6 @@
 					BOTLIB,
 					C_ONLY,
 					QGL_CHECK_GL_ERRORS,
-					MOD_COMPATABILITY,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/VMsInfo.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.3;

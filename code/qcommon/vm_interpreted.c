@@ -21,7 +21,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 #include "vm_local.h"
 
-#define	DEBUG_VM
+//#define	DEBUG_VM
 
 #ifdef DEBUG_VM // bk001204
 static char	*opnames[256] = {

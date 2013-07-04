@@ -303,7 +303,7 @@ Sets the usercmd_t based on key states
 ================
 */
 void CL_KeyMove( usercmd_t *cmd ) {
-	int		forward, side, up;
+	int		forward, side, up, movespeed;
 
 	//
 	// adjust for speed key / running
@@ -312,28 +312,30 @@ void CL_KeyMove( usercmd_t *cmd ) {
 	//
 	if ( in_speed.active ^ cl_run->integer ) {
         cmd->buttons &= ~BUTTON_WALKING;
+		movespeed = 127;
 	} else {
 		cmd->buttons |= BUTTON_WALKING;
-//		movespeed = 64;
+		movespeed = 64;
 	}
 
 	forward = 0;
 	side = 0;
 	up = 0;
+
 //	if ( in_strafe.active ) {
 //		side = cl_joyscale_y * 2 * CL_KeyState (&in_right);
 //		side -= CL_KeyAmount(&in_left) * CL_KeyState (&in_left);
 //	}
 
-    side += cl_joyscale_y[0] * 2 * CL_KeyState (&in_moveright);
-	side -= cl_joyscale_y[1] * 2 * CL_KeyState (&in_moveleft);
+    side += cl_joyscale_y[0] * 5 * CL_KeyState (&in_moveright);
+	side -= cl_joyscale_y[1] * 5 * CL_KeyState (&in_moveleft);
 
 
-//	up = cl_joyscale_x * 2 * CL_KeyState (&in_up);
-//	up -= CL_KeyAmount(&in_down) * CL_KeyState (&in_down);
+	up = movespeed * CL_KeyState (&in_up);
+	up -= movespeed * CL_KeyState (&in_down);
 
-	forward += cl_joyscale_x[0] * 2 * CL_KeyState (&in_forward);
-	forward -= cl_joyscale_x[1] * 2 * CL_KeyState (&in_back);
+	forward += cl_joyscale_x[0] * 5 * CL_KeyState (&in_forward);
+	forward -= cl_joyscale_x[1] * 5 * CL_KeyState (&in_back);
 
 	cmd->forwardmove = ClampChar( forward );
 	cmd->rightmove = ClampChar( side );
