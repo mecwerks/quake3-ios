@@ -325,6 +325,7 @@ extern void UI_CreditMenu( void );
 //
 // ui_ingame.c
 //
+extern void InGame_Event( void *ptr, int notification );
 extern void InGame_Cache( void );
 extern void UI_InGameMenu(void);
 
@@ -682,6 +683,7 @@ void UI_SPSkillMenu_Cache( void );
 #define trap_VerifyCDKey trap_ui_VerifyCDKey
 
 #define trap_SetPbClStatus trap_ui_SetPbClStatus
+#define trap_DrawTouchArea trap_ui_DrawTouchArea
 
 #define trap_PC_AddGlobalDefine trap_ui_PC_AddGlobalDefine
 #define trap_PC_LoadSource trap_ui_PC_LoadSource
@@ -753,6 +755,7 @@ void			trap_SetCDKey( char *buf );
 qboolean               trap_VerifyCDKey( const char *key, const char *chksum); // bk001208 - RC4
 
 void			trap_SetPbClStatus( int status );
+void			trap_DrawTouchArea( int x, int y, int w, int h, int menu, int callback );
 
 //
 // ui_addbots.c

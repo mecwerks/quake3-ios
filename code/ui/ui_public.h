@@ -145,7 +145,10 @@ typedef enum {
 	UIMENU_NEED_CD,
 	UIMENU_BAD_CD_KEY,
 	UIMENU_TEAM,
-	UIMENU_POSTGAME
+	UIMENU_POSTGAME,
+	// for new ui
+	UIMENU_MODS,
+	UIMENU_SETUP
 } uiMenuCommand_t;
 
 #define SORT_HOST			0
@@ -190,7 +193,10 @@ typedef enum {
 // a GetClientState syscall will be made to get the current strings
 
 	UI_UPDATE_GLCONFIG,
-//	void	UI_UpdateGLConfig( void );	
+//	void	UI_UpdateGLConfig( void );
+	
+	UI_SELECT_AND_PRESS
+// void		UI_SelectAndPress( uiMenuCommand_t menu, int callback );
 } uiExport_t;
 
 #endif

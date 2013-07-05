@@ -1266,6 +1266,7 @@ void Sys_ParseArgs( int argc, char* argv[] ) {
 
 #include "../client/client.h"
 extern clientStatic_t cls;
+extern screenInput_t si;
 
 #ifdef IOS
 void Sys_Startup( int argc, char *argv[] )

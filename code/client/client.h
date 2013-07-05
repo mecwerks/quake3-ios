@@ -31,7 +31,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 #include "../game/bg_public.h"
 
 #define	RETRANSMIT_TIMEOUT	3000	// time between connection packet retransmits
-
+#define MAX_BUTTONS 20
 
 // snapshots are a view of the server at a given time
 typedef struct {
@@ -247,6 +247,20 @@ typedef struct {
 	unsigned short	port;
 } serverAddress_t;
 
+// new controlls
+typedef struct newButtons_s {
+	qboolean active;
+	qboolean pressed;
+	int x, y, h, w;
+	int callback;
+	int menu;
+} buttons_t;
+
+typedef struct input_s {
+	int	curButton;
+	buttons_t buttons[MAX_BUTTONS];
+} screenInput_t;
+
 typedef struct {
 	connstate_t	state;				// connection status
 	int			keyCatchers;		// bit flags
@@ -301,6 +315,7 @@ typedef struct {
 	qhandle_t	consoleShader;
 } clientStatic_t;
 
+extern	screenInput_t		si;
 extern	clientStatic_t		cls;
 
 //=============================================================================
@@ -417,6 +432,7 @@ void CL_VerifyCode( void );
 
 float CL_KeyState (kbutton_t *key);
 char *Key_KeynumToString (int keynum);
+void IOS_DrawTouchArea(int x, int y, int w, int h, int menu, int callback);
 
 //
 // cl_parse.c

@@ -782,7 +782,7 @@ int CL_UISystemCalls( int *args ) {
 		return Sys_Milliseconds();
 
 	case UI_CVAR_REGISTER:
-		Cvar_Register( VMA(1), VMA(2), VMA(3), args[4] ); 
+		Cvar_Register( VMA(1), VMA(2), VMA(3), args[4] );
 		return 0;
 
 	case UI_CVAR_UPDATE:
@@ -1127,8 +1127,10 @@ int CL_UISystemCalls( int *args ) {
 	case UI_VERIFY_CDKEY:
 		return CL_CDKeyValidate(VMA(1), VMA(2));
 
+	case UI_DRAW_TOUCH_AREA:
+		IOS_DrawTouchArea(args[1], args[2], args[3], args[4], args[5], args[6]);
+		return 0;
 
-		
 	default:
 		Com_Error( ERR_DROP, "Bad UI system trap: %i", args[0] );
 

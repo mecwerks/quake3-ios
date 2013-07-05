@@ -77,6 +77,7 @@ cvar_t	*cl_trn;
 clientActive_t		cl;
 clientConnection_t	clc;
 clientStatic_t		cls;
+screenInput_t	si;
 vm_t				*cgvm;
 
 // Structure containing functions exported from refresh DLL

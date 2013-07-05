@@ -55,6 +55,7 @@ ui_main.asm \
 bg_lib.asm \
 bg_misc.asm \
 ui_addbots.asm \
+ui_ingame.asm \
 ui_atoms.asm \
 ui_cdkey.asm \
 ui_cinematics.asm \
@@ -65,7 +66,6 @@ ui_credits.asm \
 ui_demo2.asm \
 ui_display.asm \
 ui_gameinfo.asm \
-ui_ingame.asm \
 ui_loadconfig.asm \
 ui_menu.asm \
 ui_mfield.asm \

@@ -556,6 +556,21 @@ void CL_FinishMove( usercmd_t *cmd ) {
 	}
 }
 
+/*
+=================
+IOS_DrawTouchArea
+=================
+*/
+void IOS_DrawTouchArea ( int x, int y, int w, int h, int menu, int callback ) {
+	si.buttons[si.curButton].x = x;
+	si.buttons[si.curButton].y = y;
+	si.buttons[si.curButton].w = w;
+	si.buttons[si.curButton].h = h;
+	si.buttons[si.curButton].menu = menu;
+	si.buttons[si.curButton].callback = callback;
+	si.buttons[si.curButton].active = qtrue;
+	si.curButton++;
+}
 
 /*
 =================

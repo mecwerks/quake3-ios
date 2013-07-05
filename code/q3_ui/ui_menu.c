@@ -91,6 +91,7 @@ Main_MenuEvent
 =================
 */
 void Main_MenuEvent (void* ptr, int event) {
+	Com_Printf("%d\n",event);
 	if( event != QM_ACTIVATED ) {
 		return;
 	}
@@ -391,7 +392,8 @@ void UI_MainMenu( void ) {
 	s_main.mods.string					= "MODS";
 	s_main.mods.color					= color_red;
 	s_main.mods.style					= style;
-
+	trap_DrawTouchArea( 480, 7, 100, 100, UIMENU_MAIN, ID_MODS);
+	
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.exit.generic.type				= MTYPE_PTEXT;
 	s_main.exit.generic.flags				= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;

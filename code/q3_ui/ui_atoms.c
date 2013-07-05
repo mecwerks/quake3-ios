@@ -850,6 +850,28 @@ void UI_SetActiveMenu( uiMenuCommand_t menu ) {
 
 /*
 =================
+UI_SelectAndPress
+=================
+*/
+void UI_SelectAndPress( uiMenuCommand_t menu, int callback ) {
+	menucommon_s *temp;
+	
+	temp->id = callback;
+	switch ( menu ) {
+		case UIMENU_MAIN:
+			Main_MenuEvent( temp, QM_ACTIVATED );
+			return;
+		case UIMENU_INGAME:
+			InGame_Event( temp, QM_ACTIVATED );
+			return;
+		default:
+			Com_Printf("WARNING: NO CONFIGURATION FOR MENU %d!\n", menu);
+			return;
+	}
+}
+
+/*
+=================
 UI_KeyEvent
 =================
 */

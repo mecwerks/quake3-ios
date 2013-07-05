@@ -111,25 +111,16 @@
 - (void)_showMenuView {
     joypadCap0.hidden = NO;
     joypadCap1.hidden = YES;
-    _enterButton.hidden = NO;
-    _escapeButton.hidden = NO;
-    _newControlView.hidden = YES;
 }
 
 - (void)_showInGameView {
     joypadCap0.hidden = NO;
     joypadCap1.hidden = NO;
-    _enterButton.hidden = NO;
-    _escapeButton.hidden = NO;
-    _newControlView.hidden = NO;
 }
 
 - (void)_hideView {
     joypadCap0.hidden = YES;
     joypadCap1.hidden = YES;
-    _enterButton.hidden = YES;
-    _escapeButton.hidden = YES;
-    _newControlView.hidden = YES;
 }
 
 - (void)_mainGameLoop {
@@ -137,7 +128,7 @@
 	else if (cls.state == CA_ACTIVE) [self _showInGameView];
 	else [self _hideView];
 
-	[self _checkJoypads];
+//	[self _checkJoypads];
 }
 
 - (BOOL)_commonInit
@@ -214,8 +205,6 @@
 - (void)awakeFromNib {
     int i;
     CGRect joypadCapFrame;
-	CGRect newControlFrame = [_newControlView frame];
-	_shootButtonArea = CGRectMake(CGRectGetMinX(newControlFrame) + 4, CGRectGetMinY(newControlFrame) + 40, 68, 68);
 
     for (i = 0; i < NUM_JOYPADS; i++)
     {
@@ -375,6 +364,7 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     int i;
+	BOOL joys;
 
     for (UITouch *touch in touches) {
         CGPoint touchLocation = [touch locationInView:self];
@@ -386,8 +376,20 @@
                 Joypad[i].joypadTouchHash = [touch hash];
                 if (i == 0) lastKeyTime = Sys_Milliseconds();
                 else _isLooking = YES;
-            }
+				joys = TRUE;
+            } else {
+				joys = FALSE;
+			}
         }
+		for (i = 0; i < MAX_BUTTONS; i++) {
+			Com_Printf("button %d: x%d y%d h%d w%d\n", i, si.buttons[i].x, si.buttons[i].y, si.buttons[i].h, si.buttons[i].w);
+			if (CGRectContainsPoint(CGRectMake(si.buttons[i].x, si.buttons[i].y, si.buttons[i].w, si.buttons[i].h), touchLocation) && si.buttons[i].active)
+			{
+				Com_Printf("button %d active\n", i);
+				si.buttons[i].pressed = TRUE;
+				VM_Call(uivm, UI_SELECT_AND_PRESS, si.buttons[i].menu, si.buttons[i].callback);
+			}
+		}
     }
 }
 
@@ -431,7 +433,8 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     int i;
-    
+    BOOL joys;
+	
     for (UITouch *touch in touches)
     {
         for (i = 0; i < NUM_JOYPADS; i++) {
@@ -444,8 +447,20 @@
                 // Joypad caps
                 if (i == 0) joypadCap0.center = CGPointMake(Joypad[i].joypadCenterx, Joypad[i].joypadCentery);
                 else joypadCap1.center = CGPointMake(Joypad[i].joypadCenterx, Joypad[i].joypadCentery);
-            }
+				joys = TRUE;
+            } else {
+				joys = FALSE;
+			}
         }
+		if (!joys){
+			for (i = 0; i < MAX_BUTTONS; i++) {
+				if (si.buttons[i].pressed)
+				{
+					Com_Printf("button %d deactive\n", i);
+					si.buttons[i].pressed = FALSE;
+				}
+			}
+		}
     }
 }
 

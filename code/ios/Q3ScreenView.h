@@ -10,6 +10,7 @@
 #import	<OpenGLES/ES1/gl.h>
 
 #define NUM_JOYPADS 2
+#define MAX_BUTTONS 20
 
 @class UIImageView;
 
@@ -36,10 +37,7 @@ typedef struct joyPad_s {
 {
 	IBOutlet UIImageView *joypadCap0;
     IBOutlet UIImageView *joypadCap1;
-	IBOutlet UIView *_newControlView;
-    IBOutlet UIView *_escapeButton;
-    IBOutlet UIView *_enterButton;
-
+	IBOutlet UIView *_controlls;
 @protected
 	EAGLContext *_context;
 	GLuint _frameBuffer;
@@ -55,7 +53,6 @@ typedef struct joyPad_s {
 #endif // TODO
 	NSTimer *_gameTimer;
     joyPad_t Joypad[NUM_JOYPADS];
-	CGRect _shootButtonArea;
 	BOOL _isShooting;
 	BOOL _isLooking;
     int lastKeyTime;
