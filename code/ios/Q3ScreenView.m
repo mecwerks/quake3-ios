@@ -107,7 +107,24 @@
         }
     }
 }
-
+/*
+- (void)_updateButtons {
+	int i;
+	
+	for (i = 0; i < MAX_BUTTONS; i++)
+	{
+		if (si.buttons[i].active && !si.buttons[i].initialized)
+		{
+			CGRect temp = CGRectMake(si.buttons[i].x, si.buttons[i].y, si.buttons[i].w, si.buttons[i].h);
+			si.buttons[i].x = temp.origin.x;
+			si.buttons[i].y = temp.origin.y;
+			si.buttons[i].w = temp.size.width;
+			si.buttons[i].h = temp.size.height;
+		}
+			
+	}
+}
+*/
 - (void)_showMenuView {
     joypadCap0.hidden = NO;
     joypadCap1.hidden = YES;
@@ -128,6 +145,7 @@
 	else if (cls.state == CA_ACTIVE) [self _showInGameView];
 	else [self _hideView];
 
+//	[self _updateButtons];
 //	[self _checkJoypads];
 }
 

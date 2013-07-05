@@ -251,6 +251,7 @@ typedef struct {
 typedef struct newButtons_s {
 	qboolean active;
 	qboolean pressed;
+	qboolean initialized;
 	int x, y, h, w;
 	int callback;
 	int menu;
