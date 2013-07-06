@@ -105,22 +105,22 @@ UI_SPSkillMenu_SkillEvent
 =================
 */
 static void UI_SPSkillMenu_SkillEvent( void *ptr, int notification ) {
-	int		id;
 	int		skill;
-
+	int		callback;
+	
 	if (notification != QM_ACTIVATED)
 		return;
 
+	callback = ((menucommon_s*)ptr)->id;
 	SetSkillColor( (int)trap_Cvar_VariableValue( "g_spSkill" ), color_red );
 
-	id = ((menucommon_s*)ptr)->id;
-	skill = id - ID_BABY + 1;
+	skill = callback - ID_BABY + 1;
 	trap_Cvar_SetValue( "g_spSkill", skill );
 
 	SetSkillColor( skill, color_white );
 	skillMenuInfo.art_skillPic.shader = skillMenuInfo.skillpics[skill - 1];
 
-	if( id == ID_NIGHTMARE ) {
+	if( callback == ID_NIGHTMARE ) {
 		trap_S_StartLocalSound( skillMenuInfo.nightmareSound, CHAN_ANNOUNCER );
 	}
 	else {
@@ -128,16 +128,19 @@ static void UI_SPSkillMenu_SkillEvent( void *ptr, int notification ) {
 	}
 }
 
-
 /*
 =================
 UI_SPSkillMenu_FightEvent
 =================
 */
+static void UI_SPSkillMenu_FightEventMin( void ) {
+	UI_SPArena_Start( skillMenuInfo.arenaInfo );
+}
+
 static void UI_SPSkillMenu_FightEvent( void *ptr, int notification ) {
 	if (notification != QM_ACTIVATED)
 		return;
-
+	
 	UI_SPArena_Start( skillMenuInfo.arenaInfo );
 }
 
@@ -169,6 +172,25 @@ static sfxHandle_t UI_SPSkillMenu_Key( int key ) {
 	return Menu_DefaultKey( &skillMenuInfo.menu, key );
 }
 
+/*
+=================
+UI_SPSkillMenu_EventTouch
+=================
+*/
+void UI_SPSkillMenu_Event( int callback, int notification ) {
+	if (notification != QM_ACTIVATED) {
+		return;
+	}
+	
+	switch (callback) {
+		case ID_FIGHT:
+			UI_SPSkillMenu_FightEventMin();
+			break;
+		default:
+			break;
+			
+	}
+}
 
 /*
 =================
@@ -311,6 +333,8 @@ static void UI_SPSkillMenu_Init( void ) {
 	Menu_AddItem( &skillMenuInfo.menu, ( void * )&skillMenuInfo.art_skillPic );
 	Menu_AddItem( &skillMenuInfo.menu, ( void * )&skillMenuInfo.item_back );
 	Menu_AddItem( &skillMenuInfo.menu, ( void * )&skillMenuInfo.item_fight );
+
+	trap_DrawTouchArea(48, 298, 80, 100, UIMENU_SPSKILL, ID_FIGHT);
 
 	skill = (int)Com_Clamp( 1, 5, trap_Cvar_VariableValue( "g_spSkill" ) );
 	SetSkillColor( skill, color_white );

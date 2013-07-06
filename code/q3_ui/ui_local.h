@@ -314,6 +314,7 @@ extern void UI_voidfunc( void );
 //
 extern void MainMenu_Cache( void );
 extern void UI_MainMenu(void);
+extern void Main_MenuTouch( int callback, int event );
 extern void UI_RegisterCvars( void );
 extern void UI_UpdateCvars( void );
 
@@ -325,7 +326,7 @@ extern void UI_CreditMenu( void );
 //
 // ui_ingame.c
 //
-extern void InGame_Event( void *ptr, int notification );
+extern void InGame_EventTouch( int callback, int event );
 extern void InGame_Cache( void );
 extern void UI_InGameMenu(void);
 
@@ -581,6 +582,7 @@ extern void			UI_AdjustFrom640( float *x, float *y, float *w, float *h );
 extern void			UI_DrawTextBox (int x, int y, int width, int lines);
 extern qboolean		UI_IsFullscreen( void );
 extern void			UI_SetActiveMenu( uiMenuCommand_t menu );
+extern void			UI_SelectAndPress( uiMenuCommand_t menu, int callback );
 extern void			UI_PushMenu ( menuframework_s *menu );
 extern void			UI_PopMenu (void);
 extern void			UI_ForceMenuOff (void);
@@ -594,6 +596,7 @@ extern uiStatic_t	uis;
 //
 // ui_spLevel.c
 //
+void UI_SPLevelMenu_Event ( int callback, int event );
 void UI_SPLevelMenu_Cache( void );
 void UI_SPLevelMenu( void );
 void UI_SPLevelMenu_f( void );
@@ -615,7 +618,7 @@ void UI_SPPostgameMenu_f( void );
 //
 void UI_SPSkillMenu( const char *arenaInfo );
 void UI_SPSkillMenu_Cache( void );
-
+void UI_SPSkillMenu_Event( int callback, int notification );
 //
 // ui_syscalls.c
 //
@@ -683,7 +686,7 @@ void UI_SPSkillMenu_Cache( void );
 #define trap_VerifyCDKey trap_ui_VerifyCDKey
 
 #define trap_SetPbClStatus trap_ui_SetPbClStatus
-#define trap_DrawTouchArea trap_ui_DrawTouchArea
+//#define trap_DrawTouchArea trap_DrawTouchArea
 
 #define trap_PC_AddGlobalDefine trap_ui_PC_AddGlobalDefine
 #define trap_PC_LoadSource trap_ui_PC_LoadSource

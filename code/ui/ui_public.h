@@ -148,7 +148,9 @@ typedef enum {
 	UIMENU_POSTGAME,
 	// for new ui
 	UIMENU_MODS,
-	UIMENU_SETUP
+	UIMENU_SETUP,
+	UIMENU_SPLEVEL,
+	UIMENU_SPSKILL
 } uiMenuCommand_t;
 
 #define SORT_HOST			0

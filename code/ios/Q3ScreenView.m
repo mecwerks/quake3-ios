@@ -28,12 +28,14 @@
 	return [CAEAGLLayer class];
 }
 
-- (void) _checkJoypads {
+- (void) _checkJoypads
+{
     int i;
     int width, height;
     CGPoint newLocation;
     
-    for (i = 0; i < NUM_JOYPADS; i++) {
+    for (i = 0; i < NUM_JOYPADS; i++)
+	{
         newLocation = CGPointMake(
                                   Joypad[i].oldLocation.x - Joypad[i].distanceFromCenter/4 * cosf(Joypad[i].touchAngle),
                                   Joypad[i].oldLocation.y - Joypad[i].distanceFromCenter/4 * sinf(Joypad[i].touchAngle));
@@ -107,46 +109,48 @@
         }
     }
 }
-/*
-- (void)_updateButtons {
+
+- (void)_showInGameView
+{
+    joypadCap0.hidden = NO;
+    joypadCap1.hidden = NO;
+	escapeButton.hidden = NO;
+}
+
+- (void)_hideView
+{
+    joypadCap0.hidden = YES;
+    joypadCap1.hidden = YES;
+	escapeButton.hidden = YES;
+}
+
+- (void)_updateButtonsCG
+{
+	if (!si.clean) IOS_FlushButtons();
+	if (joypadCap0.hidden || joypadCap1.hidden) [self _showInGameView];
+	[self _checkJoypads];
+}
+
+- (void)_updateButtonsUI
+{
 	int i;
 	
 	for (i = 0; i < MAX_BUTTONS; i++)
 	{
 		if (si.buttons[i].active && !si.buttons[i].initialized)
 		{
-			CGRect temp = CGRectMake(si.buttons[i].x, si.buttons[i].y, si.buttons[i].w, si.buttons[i].h);
-			si.buttons[i].x = temp.origin.x;
-			si.buttons[i].y = temp.origin.y;
-			si.buttons[i].w = temp.size.width;
-			si.buttons[i].h = temp.size.height;
+			buttonArea[i] = CGRectMake(si.buttons[i].x, si.buttons[i].y, si.buttons[i].w, si.buttons[i].h);
+			si.buttons[i].initialized = TRUE;
 		}
-			
 	}
-}
-*/
-- (void)_showMenuView {
-    joypadCap0.hidden = NO;
-    joypadCap1.hidden = YES;
+	if (!joypadCap0.hidden || !joypadCap1.hidden) [self _hideView];
 }
 
-- (void)_showInGameView {
-    joypadCap0.hidden = NO;
-    joypadCap1.hidden = NO;
-}
-
-- (void)_hideView {
-    joypadCap0.hidden = YES;
-    joypadCap1.hidden = YES;
-}
-
-- (void)_mainGameLoop {
-    if (cls.keyCatchers & KEYCATCH_UI) [self _showMenuView];
-	else if (cls.state == CA_ACTIVE) [self _showInGameView];
+- (void)_mainGameLoop
+{
+    if (cls.keyCatchers & KEYCATCH_UI) [self _updateButtonsUI];
+	else if (cls.state == CA_ACTIVE) [self _updateButtonsCG];
 	else [self _hideView];
-
-//	[self _updateButtons];
-//	[self _checkJoypads];
 }
 
 - (BOOL)_commonInit
@@ -382,7 +386,6 @@
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     int i;
-	BOOL joys;
 
     for (UITouch *touch in touches) {
         CGPoint touchLocation = [touch locationInView:self];
@@ -394,18 +397,15 @@
                 Joypad[i].joypadTouchHash = [touch hash];
                 if (i == 0) lastKeyTime = Sys_Milliseconds();
                 else _isLooking = YES;
-				joys = TRUE;
-            } else {
-				joys = FALSE;
 			}
         }
-		for (i = 0; i < MAX_BUTTONS; i++) {
-			Com_Printf("button %d: x%d y%d h%d w%d\n", i, si.buttons[i].x, si.buttons[i].y, si.buttons[i].h, si.buttons[i].w);
-			if (CGRectContainsPoint(CGRectMake(si.buttons[i].x, si.buttons[i].y, si.buttons[i].w, si.buttons[i].h), touchLocation) && si.buttons[i].active)
-			{
-				Com_Printf("button %d active\n", i);
-				si.buttons[i].pressed = TRUE;
-				VM_Call(uivm, UI_SELECT_AND_PRESS, si.buttons[i].menu, si.buttons[i].callback);
+		if (cls.keyCatchers & KEYCATCH_UI) {
+			for (i = 0; i < MAX_BUTTONS; i++) {
+				if (CGRectContainsPoint(buttonArea[i], touchLocation) && si.buttons[i].active)
+				{
+					Com_Printf("button %d active\n", i);
+					VM_Call(uivm, UI_SELECT_AND_PRESS, si.buttons[i].menu, si.buttons[i].callback);
+				}
 			}
 		}
     }
@@ -451,7 +451,6 @@
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     int i;
-    BOOL joys;
 	
     for (UITouch *touch in touches)
     {
@@ -465,20 +464,8 @@
                 // Joypad caps
                 if (i == 0) joypadCap0.center = CGPointMake(Joypad[i].joypadCenterx, Joypad[i].joypadCentery);
                 else joypadCap1.center = CGPointMake(Joypad[i].joypadCenterx, Joypad[i].joypadCentery);
-				joys = TRUE;
-            } else {
-				joys = FALSE;
-			}
+            }
         }
-		if (!joys){
-			for (i = 0; i < MAX_BUTTONS; i++) {
-				if (si.buttons[i].pressed)
-				{
-					Com_Printf("button %d deactive\n", i);
-					si.buttons[i].pressed = FALSE;
-				}
-			}
-		}
     }
 }
 

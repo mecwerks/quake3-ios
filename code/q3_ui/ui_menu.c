@@ -91,12 +91,15 @@ Main_MenuEvent
 =================
 */
 void Main_MenuEvent (void* ptr, int event) {
-	Com_Printf("%d\n",event);
+	Main_MenuTouch(((menucommon_s*)ptr)->id, event);
+}
+
+void Main_MenuTouch ( int callback, int event ) {
 	if( event != QM_ACTIVATED ) {
 		return;
 	}
-
-	switch( ((menucommon_s*)ptr)->id ) {
+	
+	switch( callback ) {
 	case ID_SINGLEPLAYER:
 		UI_SPLevelMenu();
 		break;
@@ -392,7 +395,6 @@ void UI_MainMenu( void ) {
 	s_main.mods.string					= "MODS";
 	s_main.mods.color					= color_red;
 	s_main.mods.style					= style;
-	trap_DrawTouchArea( 480, 7, 100, 100, UIMENU_MAIN, ID_MODS);
 	
 	y += MAIN_MENU_VERTICAL_SPACING;
 	s_main.exit.generic.type				= MTYPE_PTEXT;
@@ -415,6 +417,13 @@ void UI_MainMenu( void ) {
 //	}
 	Menu_AddItem( &s_main.menu,	&s_main.mods );
 	Menu_AddItem( &s_main.menu,	&s_main.exit );             
+
+	trap_DrawTouchArea(290, 90, 180, 50, UIMENU_MAIN, ID_SINGLEPLAYER);
+	trap_DrawTouchArea(290, 168, 180, 50, UIMENU_MAIN, ID_MULTIPLAYER);
+	trap_DrawTouchArea(325, 239, 100, 50, UIMENU_MAIN, ID_SETUP);
+	trap_DrawTouchArea(80, 90, 160, 50, UIMENU_MAIN, ID_CINEMATICS);
+	trap_DrawTouchArea(100, 148, 90, 50, UIMENU_MAIN, ID_MODS);
+	trap_DrawTouchArea(100, 230, 76, 50, UIMENU_MAIN, ID_EXIT);
 
 	trap_Key_SetCatcher( KEYCATCH_UI );
 	uis.menusp = 0;

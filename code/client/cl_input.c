@@ -558,14 +558,30 @@ void CL_FinishMove( usercmd_t *cmd ) {
 
 /*
 =================
+IOS_FlushButtons
+=================
+*/
+void IOS_FlushButtons ( void ) {
+	memset( &si, 0, sizeof(screenInput_t) );
+	si.clean = qtrue;
+}
+
+/*
+=================
 IOS_DrawTouchArea
 =================
 */
 void IOS_DrawTouchArea ( int x, int y, int w, int h, int menu, int callback ) {
-	si.buttons[si.curButton].x = x;
-	si.buttons[si.curButton].y = y;
-	si.buttons[si.curButton].w = w;
-	si.buttons[si.curButton].h = h;
+	if ( menu != si.lastMenu ) {
+		IOS_FlushButtons();
+		si.lastMenu = menu;
+	}
+
+	if (si.clean) si.clean = qfalse;
+	si.buttons[si.curButton].x = y;
+	si.buttons[si.curButton].y = x;
+	si.buttons[si.curButton].w = h;
+	si.buttons[si.curButton].h = w;
 	si.buttons[si.curButton].menu = menu;
 	si.buttons[si.curButton].callback = callback;
 	si.buttons[si.curButton].active = qtrue;

@@ -37,7 +37,8 @@ typedef struct joyPad_s {
 {
 	IBOutlet UIImageView *joypadCap0;
     IBOutlet UIImageView *joypadCap1;
-	IBOutlet UIView *_controlls;
+	IBOutlet UIView *escapeButton;
+	
 @protected
 	EAGLContext *_context;
 	GLuint _frameBuffer;
@@ -57,6 +58,7 @@ typedef struct joyPad_s {
 	BOOL _isLooking;
     int lastKeyTime;
     BOOL _inGame;
+	CGRect buttonArea[MAX_BUTTONS];
 }
 
 - initWithFrame:(CGRect)frame;

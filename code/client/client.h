@@ -258,7 +258,9 @@ typedef struct newButtons_s {
 } buttons_t;
 
 typedef struct input_s {
+	int lastMenu;
 	int	curButton;
+	qboolean clean;
 	buttons_t buttons[MAX_BUTTONS];
 } screenInput_t;
 
@@ -434,6 +436,7 @@ void CL_VerifyCode( void );
 float CL_KeyState (kbutton_t *key);
 char *Key_KeynumToString (int keynum);
 void IOS_DrawTouchArea(int x, int y, int w, int h, int menu, int callback);
+void IOS_FlushButtons( void );
 
 //
 // cl_parse.c

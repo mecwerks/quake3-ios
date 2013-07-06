@@ -453,7 +453,7 @@ int UI_ProportionalStringWidth( const char* str ) {
 	return width;
 }
 
-static void UI_DrawProportionalString2( int x, int y, const char* str, vec4_t color, float sizeScale, qhandle_t charset )
+static void UI_DrawProportionalString2( int x, int y, const char* str, vec4_t color, float sizeScale, qhandle_t charset, qboolean touch, int menu, int id )
 {
 	const char* s;
 	unsigned char	ch; // bk001204 - unsigned
@@ -465,13 +465,17 @@ static void UI_DrawProportionalString2( int x, int y, const char* str, vec4_t co
 	float	fcol;
 	float	fwidth;
 	float	fheight;
+	int		height;
+	int		width;
+	int     nx, ny;
 
 	// draw the colored text
 	trap_R_SetColor( color );
 	
-	ax = x * uis.scale + uis.bias;
-	ay = y * uis.scale;
-
+	nx = ax = x * uis.scale + uis.bias;
+	ny = ay = y * uis.scale;
+	height = (float)propMap['A'][2] * uis.scale * sizeScale;
+	
 	s = str;
 	while ( *s )
 	{
@@ -490,9 +494,13 @@ static void UI_DrawProportionalString2( int x, int y, const char* str, vec4_t co
 		}
 
 		ax += (aw + (float)PROP_GAP_WIDTH * uis.scale * sizeScale);
+		width += (aw + (float)PROP_GAP_WIDTH * uis.scale * sizeScale);
 		s++;
 	}
 
+	if (touch)
+		trap_DrawTouchArea( nx, ny, width, height, menu, id );
+		
 	trap_R_SetColor( NULL );
 }
 
@@ -515,7 +523,8 @@ float UI_ProportionalSizeScale( int style ) {
 UI_DrawProportionalString
 =================
 */
-void UI_DrawProportionalString( int x, int y, const char* str, int style, vec4_t color ) {
+void UI_DrawProportionalStringWithTouch( int x, int y, const char* str, int style, vec4_t color, qboolean touch, int menu, int id )
+{
 	vec4_t	drawcolor;
 	int		width;
 	float	sizeScale;
@@ -541,7 +550,7 @@ void UI_DrawProportionalString( int x, int y, const char* str, int style, vec4_t
 	if ( style & UI_DROPSHADOW ) {
 		drawcolor[0] = drawcolor[1] = drawcolor[2] = 0;
 		drawcolor[3] = color[3];
-		UI_DrawProportionalString2( x+2, y+2, str, drawcolor, sizeScale, uis.charsetProp );
+		UI_DrawProportionalString2( x+2, y+2, str, drawcolor, sizeScale, uis.charsetProp, 0, 0, 0 );
 	}
 
 	if ( style & UI_INVERSE ) {
@@ -549,7 +558,7 @@ void UI_DrawProportionalString( int x, int y, const char* str, int style, vec4_t
 		drawcolor[1] = color[1] * 0.7;
 		drawcolor[2] = color[2] * 0.7;
 		drawcolor[3] = color[3];
-		UI_DrawProportionalString2( x, y, str, drawcolor, sizeScale, uis.charsetProp );
+		UI_DrawProportionalString2( x, y, str, drawcolor, sizeScale, uis.charsetProp, touch, menu, id  );
 		return;
 	}
 
@@ -558,17 +567,22 @@ void UI_DrawProportionalString( int x, int y, const char* str, int style, vec4_t
 		drawcolor[1] = color[1] * 0.7;
 		drawcolor[2] = color[2] * 0.7;
 		drawcolor[3] = color[3];
-		UI_DrawProportionalString2( x, y, str, color, sizeScale, uis.charsetProp );
+		UI_DrawProportionalString2( x, y, str, color, sizeScale, uis.charsetProp, 0, 0, 0 );
 
 		drawcolor[0] = color[0];
 		drawcolor[1] = color[1];
 		drawcolor[2] = color[2];
 		drawcolor[3] = 0.5 + 0.5 * sin( uis.realtime / PULSE_DIVISOR );
-		UI_DrawProportionalString2( x, y, str, drawcolor, sizeScale, uis.charsetPropGlow );
+		UI_DrawProportionalString2( x, y, str, drawcolor, sizeScale, uis.charsetPropGlow, touch, menu, id );
 		return;
 	}
 
-	UI_DrawProportionalString2( x, y, str, color, sizeScale, uis.charsetProp );
+	UI_DrawProportionalString2( x, y, str, color, sizeScale, uis.charsetProp, touch, menu, id );
+}
+
+void UI_DrawProportionalString( int x, int y, const char* str, int style, vec4_t color )
+{
+	UI_DrawProportionalStringWithTouch( x, y, str, style, color, 0, 0, 0 );
 }
 
 /*
@@ -640,7 +654,7 @@ void UI_DrawProportionalString_AutoWrapped( int x, int y, int xmax, int ystep, c
 UI_DrawString2
 =================
 */
-static void UI_DrawString2( int x, int y, const char* str, vec4_t color, int charw, int charh )
+static void UI_DrawString2( int x, int y, const char* str, vec4_t color, int charw, int charh, qboolean touch, int menu, int id )
 {
 	const char* s;
 	char	ch;
@@ -652,6 +666,9 @@ static void UI_DrawString2( int x, int y, const char* str, vec4_t color, int cha
 	float	ah;
 	float	frow;
 	float	fcol;
+	int		width;
+	int		height;
+	int		nx, ny;
 
 	if (y < -charh)
 		// offscreen
@@ -660,10 +677,10 @@ static void UI_DrawString2( int x, int y, const char* str, vec4_t color, int cha
 	// draw the colored text
 	trap_R_SetColor( color );
 	
-	ax = x * uis.scale + uis.bias;
-	ay = y * uis.scale;
+	nx = ax = x * uis.scale + uis.bias;
+	ny = ay = y * uis.scale;
 	aw = charw * uis.scale;
-	ah = charh * uis.scale;
+	height = ah = charh * uis.scale;
 
 	s = str;
 	while ( *s )
@@ -689,9 +706,13 @@ static void UI_DrawString2( int x, int y, const char* str, vec4_t color, int cha
 		}
 
 		ax += aw;
+		width += aw;
 		s++;
 	}
 
+	if (touch)
+		trap_DrawTouchArea( nx, ny, width, height, menu, id );
+	
 	trap_R_SetColor( NULL );
 }
 
@@ -709,14 +730,14 @@ void UI_DrawString( int x, int y, const char* str, int style, vec4_t color )
 	vec4_t	lowlight;
 	float	*drawcolor;
 	vec4_t	dropcolor;
-
+	
 	if( !str ) {
 		return;
 	}
-
+	
 	if ((style & UI_BLINK) && ((uis.realtime/BLINK_DIVISOR) & 1))
 		return;
-
+	
 	if (style & UI_SMALLFONT)
 	{
 		charw =	SMALLCHAR_WIDTH;
@@ -732,19 +753,19 @@ void UI_DrawString( int x, int y, const char* str, int style, vec4_t color )
 		charw =	BIGCHAR_WIDTH;
 		charh =	BIGCHAR_HEIGHT;
 	}
-
+	
 	if (style & UI_PULSE)
 	{
-		lowlight[0] = 0.8*color[0]; 
+		lowlight[0] = 0.8*color[0];
 		lowlight[1] = 0.8*color[1];
 		lowlight[2] = 0.8*color[2];
 		lowlight[3] = 0.8*color[3];
 		UI_LerpColor(color,lowlight,newcolor,0.5+0.5*sin(uis.realtime/PULSE_DIVISOR));
 		drawcolor = newcolor;
-	}	
+	}
 	else
 		drawcolor = color;
-
+	
 	switch (style & UI_FORMATMASK)
 	{
 		case UI_CENTER:
@@ -752,26 +773,105 @@ void UI_DrawString( int x, int y, const char* str, int style, vec4_t color )
 			len = strlen(str);
 			x   = x - len*charw/2;
 			break;
-
+			
 		case UI_RIGHT:
 			// right justify at x
 			len = strlen(str);
 			x   = x - len*charw;
 			break;
-
+			
 		default:
 			// left justify at x
 			break;
 	}
-
+	
 	if ( style & UI_DROPSHADOW )
 	{
 		dropcolor[0] = dropcolor[1] = dropcolor[2] = 0;
 		dropcolor[3] = drawcolor[3];
-		UI_DrawString2(x+2,y+2,str,dropcolor,charw,charh);
+		UI_DrawString2(x+2,y+2,str,dropcolor,charw,charh, 0, 0, 0);
 	}
+	
+	UI_DrawString2(x,y,str,drawcolor,charw,charh, 0, 0, 0);
+}
 
-	UI_DrawString2(x,y,str,drawcolor,charw,charh);
+/*
+=======================
+UI_DrawStringWithTouch
+=======================
+*/
+void UI_DrawStringWithTouch( int x, int y, const char* str, int style, vec4_t color, qboolean touch, int menu, int callback )
+{
+	int		len;
+	int		charw;
+	int		charh;
+	vec4_t	newcolor;
+	vec4_t	lowlight;
+	float	*drawcolor;
+	vec4_t	dropcolor;
+	
+	if( !str ) {
+		return;
+	}
+	
+	if ((style & UI_BLINK) && ((uis.realtime/BLINK_DIVISOR) & 1))
+		return;
+	
+	if (style & UI_SMALLFONT)
+	{
+		charw =	SMALLCHAR_WIDTH;
+		charh =	SMALLCHAR_HEIGHT;
+	}
+	else if (style & UI_GIANTFONT)
+	{
+		charw =	GIANTCHAR_WIDTH;
+		charh =	GIANTCHAR_HEIGHT;
+	}
+	else
+	{
+		charw =	BIGCHAR_WIDTH;
+		charh =	BIGCHAR_HEIGHT;
+	}
+	
+	if (style & UI_PULSE)
+	{
+		lowlight[0] = 0.8*color[0];
+		lowlight[1] = 0.8*color[1];
+		lowlight[2] = 0.8*color[2];
+		lowlight[3] = 0.8*color[3];
+		UI_LerpColor(color,lowlight,newcolor,0.5+0.5*sin(uis.realtime/PULSE_DIVISOR));
+		drawcolor = newcolor;
+	}
+	else
+		drawcolor = color;
+	
+	switch (style & UI_FORMATMASK)
+	{
+		case UI_CENTER:
+			// center justify at x
+			len = strlen(str);
+			x   = x - len*charw/2;
+			break;
+			
+		case UI_RIGHT:
+			// right justify at x
+			len = strlen(str);
+			x   = x - len*charw;
+			break;
+			
+		default:
+			// left justify at x
+			break;
+	}
+	
+	if ( style & UI_DROPSHADOW )
+	{
+		dropcolor[0] = dropcolor[1] = dropcolor[2] = 0;
+		dropcolor[3] = drawcolor[3];
+		UI_DrawString2(x+2,y+2,str,dropcolor,charw,charh, 0, 0, 0);
+	}
+	
+	UI_DrawString2(x,y,str,drawcolor,charw,charh, touch, menu, callback);
 }
 
 /*
@@ -853,19 +953,22 @@ void UI_SetActiveMenu( uiMenuCommand_t menu ) {
 UI_SelectAndPress
 =================
 */
-void UI_SelectAndPress( uiMenuCommand_t menu, int callback ) {
-	menucommon_s *temp;
-	
-	temp->id = callback;
+void UI_SelectAndPress( uiMenuCommand_t menu, int callback ) {	
 	switch ( menu ) {
 		case UIMENU_MAIN:
-			Main_MenuEvent( temp, QM_ACTIVATED );
+			Main_MenuTouch( callback, QM_ACTIVATED );
 			return;
+		case UIMENU_SPLEVEL:
+			UI_SPLevelMenu_Event ( callback, QM_ACTIVATED );
+			break;
+		case UIMENU_SPSKILL:
+			UI_SPSkillMenu_Event( callback, QM_ACTIVATED );
+			break;
 		case UIMENU_INGAME:
-			InGame_Event( temp, QM_ACTIVATED );
+			InGame_EventTouch( callback, QM_ACTIVATED );
 			return;
 		default:
-			Com_Printf("WARNING: NO CONFIGURATION FOR MENU %d!\n", menu);
+			Com_Printf("WARNING: NO TOUCH BUTTON CONFIGURATION FOR MENU %d!\n", menu);
 			return;
 	}
 }
