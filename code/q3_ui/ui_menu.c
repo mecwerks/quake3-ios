@@ -260,7 +260,6 @@ static qboolean UI_TeamArenaExists( void ) {
 	return qfalse;
 }
 
-
 /*
 ===============
 UI_MainMenu
@@ -314,10 +313,11 @@ void UI_MainMenu( void ) {
 	s_main.menu.fullscreen = qtrue;
 	s_main.menu.wrapAround = qtrue;
 	s_main.menu.showlogo = qtrue;
+	s_main.menu.id = UIMENU_MAIN;
 
 	y = 150;
 	s_main.singleplayer.generic.type		= MTYPE_PTEXT;
-	s_main.singleplayer.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS;
+	s_main.singleplayer.generic.flags		= QMF_CENTER_JUSTIFY|QMF_PULSEIFFOCUS|QMF_TOUCH;
 	s_main.singleplayer.generic.x			= 160;//320;
 	s_main.singleplayer.generic.y			= y;
 	s_main.singleplayer.generic.id			= ID_SINGLEPLAYER;
@@ -418,13 +418,13 @@ void UI_MainMenu( void ) {
 	Menu_AddItem( &s_main.menu,	&s_main.mods );
 	Menu_AddItem( &s_main.menu,	&s_main.exit );             
 
-	trap_DrawTouchArea(290, 90, 180, 50, UIMENU_MAIN, ID_SINGLEPLAYER);
-	trap_DrawTouchArea(290, 168, 180, 50, UIMENU_MAIN, ID_MULTIPLAYER);
-	trap_DrawTouchArea(325, 239, 100, 50, UIMENU_MAIN, ID_SETUP);
-	trap_DrawTouchArea(80, 90, 160, 50, UIMENU_MAIN, ID_CINEMATICS);
-	trap_DrawTouchArea(100, 148, 90, 50, UIMENU_MAIN, ID_MODS);
-	trap_DrawTouchArea(100, 230, 76, 50, UIMENU_MAIN, ID_EXIT);
-
+	Menu_DrawTouchItem( &s_main.singleplayer );
+	Menu_DrawTouchItem( &s_main.multiplayer );
+	Menu_DrawTouchItem( &s_main.setup );
+	Menu_DrawTouchItem( &s_main.cinematics );
+	Menu_DrawTouchItem( &s_main.mods );
+	Menu_DrawTouchItem( &s_main.exit );
+	
 	trap_Key_SetCatcher( KEYCATCH_UI );
 	uis.menusp = 0;
 	UI_PushMenu ( &s_main.menu );

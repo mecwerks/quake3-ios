@@ -138,6 +138,7 @@ extern vmCvar_t	ui_cdkeychecked;
 #define QMF_LOWERCASE			(unsigned)0x00040000	// edit field is all lower case
 #define QMF_UPPERCASE			(unsigned)0x00080000	// edit field is all upper case
 #define QMF_SILENT				(unsigned)0x00100000
+#define QMF_TOUCH				(unsigned)0x00200000	// draw touch button
 
 // callback notifications
 #define QM_GOTFOCUS				1
@@ -149,6 +150,7 @@ typedef struct _tag_menuframework
 	int	cursor;
 	int cursor_prev;
 
+	int id;
 	int	nitems;
 	void *items[MAX_MENUITEMS];
 
@@ -255,6 +257,7 @@ typedef struct
 extern void			Menu_Cache( void );
 extern void			Menu_Focus( menucommon_s *m );
 extern void			Menu_AddItem( menuframework_s *menu, void *item );
+extern void			Menu_DrawTouchItem( void *item );
 extern void			Menu_AdjustCursor( menuframework_s *menu, int dir );
 extern void			Menu_Draw( menuframework_s *menu );
 extern void			*Menu_ItemAtCursor( menuframework_s *m );
@@ -555,6 +558,12 @@ typedef struct {
 	qboolean			firstdraw;
 } uiStatic_t;
 
+typedef struct {
+	int callback;
+	qboolean draw;
+	uiMenuCommand_t menu;
+} touchData_t;
+
 extern void			UI_Init( void );
 extern void			UI_UpdateGLConfig( void );
 extern void			UI_Shutdown( void );
@@ -569,13 +578,16 @@ extern void			UI_FillRect( float x, float y, float width, float height, const fl
 extern void			UI_DrawRect( float x, float y, float width, float height, const float *color );
 extern void			UI_UpdateScreen( void );
 extern void			UI_SetColor( const float *rgba );
+extern void			UI_DrawTouch( touchData_t * touch );
 extern void			UI_LerpColor(vec4_t a, vec4_t b, vec4_t c, float t);
 extern void			UI_DrawBannerString( int x, int y, const char* str, int style, vec4_t color );
 extern float		UI_ProportionalSizeScale( int style );
 extern void			UI_DrawProportionalString( int x, int y, const char* str, int style, vec4_t color );
+extern void			UI_DrawProportionalStringWithTouch( int x, int y, const char* str, int style, vec4_t color, touchData_t *touch );
 extern void			UI_DrawProportionalString_AutoWrapped( int x, int ystart, int xmax, int ystep, const char* str, int style, vec4_t color );
 extern int			UI_ProportionalStringWidth( const char* str );
 extern void			UI_DrawString( int x, int y, const char* str, int style, vec4_t color );
+extern void			UI_DrawStringWithTouch( int x, int y, const char* str, int style, vec4_t color, touchData_t *touch );
 extern void			UI_DrawChar( int x, int y, int ch, int style, vec4_t color );
 extern qboolean 	UI_CursorInRect (int x, int y, int width, int height);
 extern void			UI_AdjustFrom640( float *x, float *y, float *w, float *h );
@@ -758,7 +770,7 @@ void			trap_SetCDKey( char *buf );
 qboolean               trap_VerifyCDKey( const char *key, const char *chksum); // bk001208 - RC4
 
 void			trap_SetPbClStatus( int status );
-void			trap_DrawTouchArea( int x, int y, int w, int h, int menu, int callback );
+void			trap_DrawTouchArea( float x, float y, float w, float h, int menu, int callback );
 
 //
 // ui_addbots.c

@@ -1128,7 +1128,7 @@ int CL_UISystemCalls( int *args ) {
 		return CL_CDKeyValidate(VMA(1), VMA(2));
 
 	case UI_DRAW_TOUCH_AREA:
-		IOS_DrawTouchArea(args[1], args[2], args[3], args[4], args[5], args[6]);
+		IOS_DrawTouchArea(VMF(1), VMF(2), VMF(3), VMF(4), args[5], args[6]);
 		return 0;
 
 	default:

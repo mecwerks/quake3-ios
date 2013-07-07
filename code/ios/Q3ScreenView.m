@@ -139,6 +139,7 @@
 	{
 		if (si.buttons[i].active && !si.buttons[i].initialized)
 		{
+//			Com_Printf("x:%f, y:%f, w:%f, h:%f\n",si.buttons[i].x, si.buttons[i].y, si.buttons[i].w, si.buttons[i].h);
 			buttonArea[i] = CGRectMake(si.buttons[i].x, si.buttons[i].y, si.buttons[i].w, si.buttons[i].h);
 			si.buttons[i].initialized = TRUE;
 		}
@@ -404,7 +405,7 @@
 				if (CGRectContainsPoint(buttonArea[i], touchLocation) && si.buttons[i].active)
 				{
 					Com_Printf("button %d active\n", i);
-					VM_Call(uivm, UI_SELECT_AND_PRESS, si.buttons[i].menu, si.buttons[i].callback);
+					//VM_Call(uivm, UI_SELECT_AND_PRESS, si.buttons[i].menu, si.buttons[i].callback);
 				}
 			}
 		}

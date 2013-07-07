@@ -571,12 +571,13 @@ void IOS_FlushButtons ( void ) {
 IOS_DrawTouchArea
 =================
 */
-void IOS_DrawTouchArea ( int x, int y, int w, int h, int menu, int callback ) {
+void IOS_DrawTouchArea ( float x, float y, float w, float h, int menu, int callback ) {
 	if ( menu != si.lastMenu ) {
 		IOS_FlushButtons();
 		si.lastMenu = menu;
 	}
 
+	Com_Printf("x:%f, y:%f, w:%f, h:%f\n", x, y, w, h);
 	if (si.clean) si.clean = qfalse;
 	si.buttons[si.curButton].x = y;
 	si.buttons[si.curButton].y = x;

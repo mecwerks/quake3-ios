@@ -404,6 +404,6 @@ void trap_SetPbClStatus( int status ) {
 	syscall( UI_SET_PBCLSTATUS, status );
 }
 	
-void trap_DrawTouchArea( int x, int y, int w, int h, int menu, int callback ){
+void trap_DrawTouchArea( float x, float y, float w, float h, int menu, int callback ){
 	syscall( UI_DRAW_TOUCH_AREA, x, y, w, h, menu, callback );
 }

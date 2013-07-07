@@ -191,113 +191,113 @@ UI_DrawProportionalString2
 =================
 */
 static int	propMap[128][3] = {
-{0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1},
-{0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1},
-
-{0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1},
-{0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1},
-
-{0, 0, PROP_SPACE_WIDTH},		// SPACE
-{11, 122, 7},	// !
-{154, 181, 14},	// "
-{55, 122, 17},	// #
-{79, 122, 18},	// $
-{101, 122, 23},	// %
-{153, 122, 18},	// &
-{9, 93, 7},		// '
-{207, 122, 8},	// (
-{230, 122, 9},	// )
-{177, 122, 18},	// *
-{30, 152, 18},	// +
-{85, 181, 7},	// ,
-{34, 93, 11},	// -
-{110, 181, 6},	// .
-{130, 152, 14},	// /
-
-{22, 64, 17},	// 0
-{41, 64, 12},	// 1
-{58, 64, 17},	// 2
-{78, 64, 18},	// 3
-{98, 64, 19},	// 4
-{120, 64, 18},	// 5
-{141, 64, 18},	// 6
-{204, 64, 16},	// 7
-{162, 64, 17},	// 8
-{182, 64, 18},	// 9
-{59, 181, 7},	// :
-{35,181, 7},	// ;
-{203, 152, 14},	// <
-{56, 93, 14},	// =
-{228, 152, 14},	// >
-{177, 181, 18},	// ?
-
-{28, 122, 22},	// @
-{5, 4, 18},		// A
-{27, 4, 18},	// B
-{48, 4, 18},	// C
-{69, 4, 17},	// D
-{90, 4, 13},	// E
-{106, 4, 13},	// F
-{121, 4, 18},	// G
-{143, 4, 17},	// H
-{164, 4, 8},	// I
-{175, 4, 16},	// J
-{195, 4, 18},	// K
-{216, 4, 12},	// L
-{230, 4, 23},	// M
-{6, 34, 18},	// N
-{27, 34, 18},	// O
-
-{48, 34, 18},	// P
-{68, 34, 18},	// Q
-{90, 34, 17},	// R
-{110, 34, 18},	// S
-{130, 34, 14},	// T
-{146, 34, 18},	// U
-{166, 34, 19},	// V
-{185, 34, 29},	// W
-{215, 34, 18},	// X
-{234, 34, 18},	// Y
-{5, 64, 14},	// Z
-{60, 152, 7},	// [
-{106, 151, 13},	// '\'
-{83, 152, 7},	// ]
-{128, 122, 17},	// ^
-{4, 152, 21},	// _
-
-{134, 181, 5},	// '
-{5, 4, 18},		// A
-{27, 4, 18},	// B
-{48, 4, 18},	// C
-{69, 4, 17},	// D
-{90, 4, 13},	// E
-{106, 4, 13},	// F
-{121, 4, 18},	// G
-{143, 4, 17},	// H
-{164, 4, 8},	// I
-{175, 4, 16},	// J
-{195, 4, 18},	// K
-{216, 4, 12},	// L
-{230, 4, 23},	// M
-{6, 34, 18},	// N
-{27, 34, 18},	// O
-
-{48, 34, 18},	// P
-{68, 34, 18},	// Q
-{90, 34, 17},	// R
-{110, 34, 18},	// S
-{130, 34, 14},	// T
-{146, 34, 18},	// U
-{166, 34, 19},	// V
-{185, 34, 29},	// W
-{215, 34, 18},	// X
-{234, 34, 18},	// Y
-{5, 64, 14},	// Z
-{153, 152, 13},	// {
-{11, 181, 5},	// |
-{180, 152, 13},	// }
-{79, 93, 17},	// ~
-{0, 0, -1}		// DEL
+	{0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1},
+	{0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1},
+	
+	{0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1},
+	{0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1}, {0, 0, -1},
+	
+	{0, 0, PROP_SPACE_WIDTH},		// SPACE
+	{11, 122, 7},	// !
+	{154, 181, 14},	// "
+	{55, 122, 17},	// #
+	{79, 122, 18},	// $
+	{101, 122, 23},	// %
+	{153, 122, 18},	// &
+	{9, 93, 7},		// '
+	{207, 122, 8},	// (
+	{230, 122, 9},	// )
+	{177, 122, 18},	// *
+	{30, 152, 18},	// +
+	{85, 181, 7},	// ,
+	{34, 93, 11},	// -
+	{110, 181, 6},	// .
+	{130, 152, 14},	// /
+	
+	{22, 64, 17},	// 0
+	{41, 64, 12},	// 1
+	{58, 64, 17},	// 2
+	{78, 64, 18},	// 3
+	{98, 64, 19},	// 4
+	{120, 64, 18},	// 5
+	{141, 64, 18},	// 6
+	{204, 64, 16},	// 7
+	{162, 64, 17},	// 8
+	{182, 64, 18},	// 9
+	{59, 181, 7},	// :
+	{35,181, 7},	// ;
+	{203, 152, 14},	// <
+	{56, 93, 14},	// =
+	{228, 152, 14},	// >
+	{177, 181, 18},	// ?
+	
+	{28, 122, 22},	// @
+	{5, 4, 18},		// A
+	{27, 4, 18},	// B
+	{48, 4, 18},	// C
+	{69, 4, 17},	// D
+	{90, 4, 13},	// E
+	{106, 4, 13},	// F
+	{121, 4, 18},	// G
+	{143, 4, 17},	// H
+	{164, 4, 8},	// I
+	{175, 4, 16},	// J
+	{195, 4, 18},	// K
+	{216, 4, 12},	// L
+	{230, 4, 23},	// M
+	{6, 34, 18},	// N
+	{27, 34, 18},	// O
+	
+	{48, 34, 18},	// P
+	{68, 34, 18},	// Q
+	{90, 34, 17},	// R
+	{110, 34, 18},	// S
+	{130, 34, 14},	// T
+	{146, 34, 18},	// U
+	{166, 34, 19},	// V
+	{185, 34, 29},	// W
+	{215, 34, 18},	// X
+	{234, 34, 18},	// Y
+	{5, 64, 14},	// Z
+	{60, 152, 7},	// [
+	{106, 151, 13},	// '\'
+	{83, 152, 7},	// ]
+	{128, 122, 17},	// ^
+	{4, 152, 21},	// _
+	
+	{134, 181, 5},	// '
+	{5, 4, 18},		// A
+	{27, 4, 18},	// B
+	{48, 4, 18},	// C
+	{69, 4, 17},	// D
+	{90, 4, 13},	// E
+	{106, 4, 13},	// F
+	{121, 4, 18},	// G
+	{143, 4, 17},	// H
+	{164, 4, 8},	// I
+	{175, 4, 16},	// J
+	{195, 4, 18},	// K
+	{216, 4, 12},	// L
+	{230, 4, 23},	// M
+	{6, 34, 18},	// N
+	{27, 34, 18},	// O
+	
+	{48, 34, 18},	// P
+	{68, 34, 18},	// Q
+	{90, 34, 17},	// R
+	{110, 34, 18},	// S
+	{130, 34, 14},	// T
+	{146, 34, 18},	// U
+	{166, 34, 19},	// V
+	{185, 34, 29},	// W
+	{215, 34, 18},	// X
+	{234, 34, 18},	// Y
+	{5, 64, 14},	// Z
+	{153, 152, 13},	// {
+	{11, 181, 5},	// |
+	{180, 152, 13},	// }
+	{79, 93, 17},	// ~
+	{0, 0, -1}		// DEL
 };
 
 static int propMapB[26][3] = {
@@ -338,6 +338,13 @@ static int propMapB[26][3] = {
 
 // bk001205 - code below duplicated in cgame/cg_drawtools.c
 // bk001205 - FIXME: does this belong in ui_shared.c?
+
+void UI_DrawTouch( touchData_t *touch ) {
+	if (touch && touch->draw)
+		trap_DrawTouchArea( 290, 90, 180, 50, touch->menu, touch->callback);
+	//536-nx, ny, width, height, touch->menu, touch->callback );
+}
+
 /*
 =================
 UI_DrawBannerString
@@ -453,7 +460,7 @@ int UI_ProportionalStringWidth( const char* str ) {
 	return width;
 }
 
-static void UI_DrawProportionalString2( int x, int y, const char* str, vec4_t color, float sizeScale, qhandle_t charset, qboolean touch, int menu, int id )
+static void UI_DrawProportionalString2( int x, int y, const char* str, vec4_t color, float sizeScale, qhandle_t charset, touchData_t *touch )
 {
 	const char* s;
 	unsigned char	ch; // bk001204 - unsigned
@@ -474,7 +481,7 @@ static void UI_DrawProportionalString2( int x, int y, const char* str, vec4_t co
 	
 	nx = ax = x * uis.scale + uis.bias;
 	ny = ay = y * uis.scale;
-	height = (float)propMap['A'][2] * uis.scale * sizeScale;
+	height = (float)propMap[20][2] * uis.scale * sizeScale;
 	
 	s = str;
 	while ( *s )
@@ -496,12 +503,11 @@ static void UI_DrawProportionalString2( int x, int y, const char* str, vec4_t co
 		ax += (aw + (float)PROP_GAP_WIDTH * uis.scale * sizeScale);
 		width += (aw + (float)PROP_GAP_WIDTH * uis.scale * sizeScale);
 		s++;
-	}
+	}		
 
-	if (touch)
-		trap_DrawTouchArea( nx, ny, width, height, menu, id );
-		
 	trap_R_SetColor( NULL );
+	
+	UI_DrawTouch( touch );
 }
 
 /*
@@ -523,7 +529,7 @@ float UI_ProportionalSizeScale( int style ) {
 UI_DrawProportionalString
 =================
 */
-void UI_DrawProportionalStringWithTouch( int x, int y, const char* str, int style, vec4_t color, qboolean touch, int menu, int id )
+void UI_DrawProportionalStringWithTouch( int x, int y, const char* str, int style, vec4_t color, touchData_t *touch )
 {
 	vec4_t	drawcolor;
 	int		width;
@@ -550,7 +556,7 @@ void UI_DrawProportionalStringWithTouch( int x, int y, const char* str, int styl
 	if ( style & UI_DROPSHADOW ) {
 		drawcolor[0] = drawcolor[1] = drawcolor[2] = 0;
 		drawcolor[3] = color[3];
-		UI_DrawProportionalString2( x+2, y+2, str, drawcolor, sizeScale, uis.charsetProp, 0, 0, 0 );
+		UI_DrawProportionalString2( x+2, y+2, str, drawcolor, sizeScale, uis.charsetProp, NULL );
 	}
 
 	if ( style & UI_INVERSE ) {
@@ -558,7 +564,7 @@ void UI_DrawProportionalStringWithTouch( int x, int y, const char* str, int styl
 		drawcolor[1] = color[1] * 0.7;
 		drawcolor[2] = color[2] * 0.7;
 		drawcolor[3] = color[3];
-		UI_DrawProportionalString2( x, y, str, drawcolor, sizeScale, uis.charsetProp, touch, menu, id  );
+		UI_DrawProportionalString2( x, y, str, drawcolor, sizeScale, uis.charsetProp, touch  );
 		return;
 	}
 
@@ -567,22 +573,22 @@ void UI_DrawProportionalStringWithTouch( int x, int y, const char* str, int styl
 		drawcolor[1] = color[1] * 0.7;
 		drawcolor[2] = color[2] * 0.7;
 		drawcolor[3] = color[3];
-		UI_DrawProportionalString2( x, y, str, color, sizeScale, uis.charsetProp, 0, 0, 0 );
+		UI_DrawProportionalString2( x, y, str, color, sizeScale, uis.charsetProp, NULL );
 
 		drawcolor[0] = color[0];
 		drawcolor[1] = color[1];
 		drawcolor[2] = color[2];
 		drawcolor[3] = 0.5 + 0.5 * sin( uis.realtime / PULSE_DIVISOR );
-		UI_DrawProportionalString2( x, y, str, drawcolor, sizeScale, uis.charsetPropGlow, touch, menu, id );
+		UI_DrawProportionalString2( x, y, str, drawcolor, sizeScale, uis.charsetPropGlow, touch );
 		return;
 	}
 
-	UI_DrawProportionalString2( x, y, str, color, sizeScale, uis.charsetProp, touch, menu, id );
+	UI_DrawProportionalString2( x, y, str, color, sizeScale, uis.charsetProp, touch );
 }
 
 void UI_DrawProportionalString( int x, int y, const char* str, int style, vec4_t color )
 {
-	UI_DrawProportionalStringWithTouch( x, y, str, style, color, 0, 0, 0 );
+	UI_DrawProportionalStringWithTouch( x, y, str, style, color, NULL );
 }
 
 /*
@@ -654,7 +660,7 @@ void UI_DrawProportionalString_AutoWrapped( int x, int y, int xmax, int ystep, c
 UI_DrawString2
 =================
 */
-static void UI_DrawString2( int x, int y, const char* str, vec4_t color, int charw, int charh, qboolean touch, int menu, int id )
+static void UI_DrawString2( int x, int y, const char* str, vec4_t color, int charw, int charh, touchData_t *touch )
 {
 	const char* s;
 	char	ch;
@@ -710,10 +716,89 @@ static void UI_DrawString2( int x, int y, const char* str, vec4_t color, int cha
 		s++;
 	}
 
-	if (touch)
-		trap_DrawTouchArea( nx, ny, width, height, menu, id );
+//	if (touch)
+//		trap_DrawTouchArea( nx, ny, width, height, menu, id );
 	
 	trap_R_SetColor( NULL );
+}
+
+/*
+=======================
+UI_DrawStringWithTouch
+=======================
+*/
+void UI_DrawStringWithTouch( int x, int y, const char* str, int style, vec4_t color, touchData_t *touch )
+{
+	int		len;
+	int		charw;
+	int		charh;
+	vec4_t	newcolor;
+	vec4_t	lowlight;
+	float	*drawcolor;
+	vec4_t	dropcolor;
+	
+	if( !str ) {
+		return;
+	}
+	
+	if ((style & UI_BLINK) && ((uis.realtime/BLINK_DIVISOR) & 1))
+		return;
+	
+	if (style & UI_SMALLFONT)
+	{
+		charw =	SMALLCHAR_WIDTH;
+		charh =	SMALLCHAR_HEIGHT;
+	}
+	else if (style & UI_GIANTFONT)
+	{
+		charw =	GIANTCHAR_WIDTH;
+		charh =	GIANTCHAR_HEIGHT;
+	}
+	else
+	{
+		charw =	BIGCHAR_WIDTH;
+		charh =	BIGCHAR_HEIGHT;
+	}
+	
+	if (style & UI_PULSE)
+	{
+		lowlight[0] = 0.8*color[0];
+		lowlight[1] = 0.8*color[1];
+		lowlight[2] = 0.8*color[2];
+		lowlight[3] = 0.8*color[3];
+		UI_LerpColor(color,lowlight,newcolor,0.5+0.5*sin(uis.realtime/PULSE_DIVISOR));
+		drawcolor = newcolor;
+	}
+	else
+		drawcolor = color;
+	
+	switch (style & UI_FORMATMASK)
+	{
+		case UI_CENTER:
+			// center justify at x
+			len = strlen(str);
+			x   = x - len*charw/2;
+			break;
+			
+		case UI_RIGHT:
+			// right justify at x
+			len = strlen(str);
+			x   = x - len*charw;
+			break;
+			
+		default:
+			// left justify at x
+			break;
+	}
+	
+	if ( style & UI_DROPSHADOW )
+	{
+		dropcolor[0] = dropcolor[1] = dropcolor[2] = 0;
+		dropcolor[3] = drawcolor[3];
+		UI_DrawString2(x+2,y+2,str,dropcolor,charw,charh, touch);
+	}
+	
+	UI_DrawString2(x,y,str,drawcolor,charw,charh, touch);
 }
 
 /*
@@ -723,155 +808,7 @@ UI_DrawString
 */
 void UI_DrawString( int x, int y, const char* str, int style, vec4_t color )
 {
-	int		len;
-	int		charw;
-	int		charh;
-	vec4_t	newcolor;
-	vec4_t	lowlight;
-	float	*drawcolor;
-	vec4_t	dropcolor;
-	
-	if( !str ) {
-		return;
-	}
-	
-	if ((style & UI_BLINK) && ((uis.realtime/BLINK_DIVISOR) & 1))
-		return;
-	
-	if (style & UI_SMALLFONT)
-	{
-		charw =	SMALLCHAR_WIDTH;
-		charh =	SMALLCHAR_HEIGHT;
-	}
-	else if (style & UI_GIANTFONT)
-	{
-		charw =	GIANTCHAR_WIDTH;
-		charh =	GIANTCHAR_HEIGHT;
-	}
-	else
-	{
-		charw =	BIGCHAR_WIDTH;
-		charh =	BIGCHAR_HEIGHT;
-	}
-	
-	if (style & UI_PULSE)
-	{
-		lowlight[0] = 0.8*color[0];
-		lowlight[1] = 0.8*color[1];
-		lowlight[2] = 0.8*color[2];
-		lowlight[3] = 0.8*color[3];
-		UI_LerpColor(color,lowlight,newcolor,0.5+0.5*sin(uis.realtime/PULSE_DIVISOR));
-		drawcolor = newcolor;
-	}
-	else
-		drawcolor = color;
-	
-	switch (style & UI_FORMATMASK)
-	{
-		case UI_CENTER:
-			// center justify at x
-			len = strlen(str);
-			x   = x - len*charw/2;
-			break;
-			
-		case UI_RIGHT:
-			// right justify at x
-			len = strlen(str);
-			x   = x - len*charw;
-			break;
-			
-		default:
-			// left justify at x
-			break;
-	}
-	
-	if ( style & UI_DROPSHADOW )
-	{
-		dropcolor[0] = dropcolor[1] = dropcolor[2] = 0;
-		dropcolor[3] = drawcolor[3];
-		UI_DrawString2(x+2,y+2,str,dropcolor,charw,charh, 0, 0, 0);
-	}
-	
-	UI_DrawString2(x,y,str,drawcolor,charw,charh, 0, 0, 0);
-}
-
-/*
-=======================
-UI_DrawStringWithTouch
-=======================
-*/
-void UI_DrawStringWithTouch( int x, int y, const char* str, int style, vec4_t color, qboolean touch, int menu, int callback )
-{
-	int		len;
-	int		charw;
-	int		charh;
-	vec4_t	newcolor;
-	vec4_t	lowlight;
-	float	*drawcolor;
-	vec4_t	dropcolor;
-	
-	if( !str ) {
-		return;
-	}
-	
-	if ((style & UI_BLINK) && ((uis.realtime/BLINK_DIVISOR) & 1))
-		return;
-	
-	if (style & UI_SMALLFONT)
-	{
-		charw =	SMALLCHAR_WIDTH;
-		charh =	SMALLCHAR_HEIGHT;
-	}
-	else if (style & UI_GIANTFONT)
-	{
-		charw =	GIANTCHAR_WIDTH;
-		charh =	GIANTCHAR_HEIGHT;
-	}
-	else
-	{
-		charw =	BIGCHAR_WIDTH;
-		charh =	BIGCHAR_HEIGHT;
-	}
-	
-	if (style & UI_PULSE)
-	{
-		lowlight[0] = 0.8*color[0];
-		lowlight[1] = 0.8*color[1];
-		lowlight[2] = 0.8*color[2];
-		lowlight[3] = 0.8*color[3];
-		UI_LerpColor(color,lowlight,newcolor,0.5+0.5*sin(uis.realtime/PULSE_DIVISOR));
-		drawcolor = newcolor;
-	}
-	else
-		drawcolor = color;
-	
-	switch (style & UI_FORMATMASK)
-	{
-		case UI_CENTER:
-			// center justify at x
-			len = strlen(str);
-			x   = x - len*charw/2;
-			break;
-			
-		case UI_RIGHT:
-			// right justify at x
-			len = strlen(str);
-			x   = x - len*charw;
-			break;
-			
-		default:
-			// left justify at x
-			break;
-	}
-	
-	if ( style & UI_DROPSHADOW )
-	{
-		dropcolor[0] = dropcolor[1] = dropcolor[2] = 0;
-		dropcolor[3] = drawcolor[3];
-		UI_DrawString2(x+2,y+2,str,dropcolor,charw,charh, 0, 0, 0);
-	}
-	
-	UI_DrawString2(x,y,str,drawcolor,charw,charh, touch, menu, callback);
+	UI_DrawStringWithTouch(x, y, str, style, color, NULL);
 }
 
 /*

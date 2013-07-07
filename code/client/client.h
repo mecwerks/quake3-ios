@@ -252,7 +252,7 @@ typedef struct newButtons_s {
 	qboolean active;
 	qboolean pressed;
 	qboolean initialized;
-	int x, y, h, w;
+	float x, y, h, w;
 	int callback;
 	int menu;
 } buttons_t;
@@ -435,7 +435,7 @@ void CL_VerifyCode( void );
 
 float CL_KeyState (kbutton_t *key);
 char *Key_KeynumToString (int keynum);
-void IOS_DrawTouchArea(int x, int y, int w, int h, int menu, int callback);
+void IOS_DrawTouchArea(float x, float y, float w, float h, int menu, int callback);
 void IOS_FlushButtons( void );
 
 //
