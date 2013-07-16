@@ -1,9 +1,3 @@
-Compiling is only supported for iOS at the moment
+All active development will be done here: https://github.com/mecwerks/ioq3-ios
 
-COMPILING for iOS
-=======================
-
-Xcode project for ios is located in code/ios/Quake3.xcodeproj
-In order to compile you need a jailbroken device and a modified version of Xcode.
-
-email me for any questions or concerns: mecwerks@gmail.com
+Feel free to email me for any questions or concerns: mecwerks@gmail.com
